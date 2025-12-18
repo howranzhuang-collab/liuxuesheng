@@ -1,0 +1,586 @@
+<!-- 用户端学费缴纳页面 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学费缴纳 - 留学生报名网站</title>
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/diy.css">
+    <style>
+        .nav-container {
+            background-color: #34495e;
+            color: white;
+        }
+        .nav-bar {
+            margin: 0 auto;
+            width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .nav-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .nav-links a:hover {
+            color: #1abc9c;
+        }
+        .user-info {
+            display: flex;
+            gap: 10px;
+        }
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        .page-title {
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .tabs-container {
+            margin-bottom: 30px;
+        }
+        .table-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .tab-content {
+            margin-top: 20px;
+        }
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        .payment-methods {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .payment-card {
+            width: 200px;
+            padding: 20px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .payment-card:hover {
+            border-color: #1abc9c;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .payment-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .payment-card .method-name {
+            font-weight: bold;
+            color: #34495e;
+        }
+        .app-item {
+            padding: 20px;
+            border-bottom: 1px solid #ecf0f1;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .app-title {
+            font-weight: bold;
+            color: #34495e;
+            font-size: 18px;
+        }
+        .app-details {
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        .app-amount {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .pay-btn {
+            background-color: #1abc9c;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .pay-btn:hover {
+            background-color: #16a085;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-container">
+        <div class="nav-bar">
+            <div class="nav-title">留学生报名网站管理系统</div>
+            <div class="nav-links">
+                <a href="../user_home.html">Home</a>
+                <a href="../notice/table.html">公告信息</a>
+                <a href="#">留学资讯</a>
+                <a href="../student_account.html">个人账户</a>
+                <a href="../info.html">个人资料</a>
+                <a href="../application_guide/table.html">申请指南</a>
+                <a href="#">关于我们</a>
+                <a href="../professional_info_client.html">专业信息</a>
+                <a href="../professional_apply.html">专业申报</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeText">欢迎您</span>
+                <a href="#" id="logoutBtn">退出</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="container">
+        <h1 class="page-title">学费缴纳</h1>
+        
+        <!-- 选项卡 -->
+        <div class="tabs-container">
+            <div class="layui-tab" lay-filter="tuition-tabs">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">学费缴纳</li>
+                    <li>缴纳记录</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <!-- 学费缴纳 -->
+                    <div class="layui-tab-item layui-show" id="payment-section">
+                        <div class="table-container">
+                            <h3>待缴纳学费的申请</h3>
+                            <div id="pending-applications">
+                                <!-- 待缴纳学费的申请列表将通过JavaScript动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 缴纳记录 -->
+                    <div class="layui-tab-item" id="records-section">
+                        <div class="table-container">
+                            <table class="layui-hide" id="payment-records" lay-filter="payment-records"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 支付方式选择弹窗 -->
+    <div id="payment-method-modal" style="display: none;">
+        <div style="text-align: center;">
+            <h3>选择支付方式</h3>
+            <div class="payment-methods">
+                <div class="payment-card" data-method="微信">
+                    <img src="../../img/wx.png" alt="微信支付">
+                    <div class="method-name">微信支付</div>
+                </div>
+                <div class="payment-card" data-method="支付宝">
+                    <img src="../../img/zfb.png" alt="支付宝">
+                    <div class="method-name">支付宝</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../layui/layui.js"></script>
+    <script src="../../js/axios.min.js"></script>
+    <script src="../../js/base.js"></script>
+    <script type="text/javascript">
+        var BaseUrl = baseUrl();
+        let personInfo;
+        let token = sessionStorage.token;
+        
+        try {
+            personInfo = JSON.parse(sessionStorage.personInfo);
+            if (personInfo) {
+                document.getElementById('welcomeText').textContent = `欢迎您，${personInfo.nickname || personInfo.username}`;
+            }
+        } catch (error) {
+            console.error('解析用户信息出错:', error);
+            window.location.href = '../../index.html';
+        }
+        
+        // 退出登录
+        document.getElementById('logoutBtn').onclick = async function() {
+            try {
+                await axios.get(BaseUrl + '/api/user/quit', {
+                    headers: {
+                        "x-auth-token": token
+                    }
+                });
+                sessionStorage.clear();
+                window.location.href = '../../index.html';
+            } catch (error) {
+                console.error('退出登录失败:', error);
+                sessionStorage.clear();
+                window.location.href = '../../index.html';
+            }
+        };
+        
+        // 初始化LayUI组件
+        layui.use(['element', 'table', 'layer'], function() {
+            var element = layui.element;
+            var table = layui.table;
+            var layer = layui.layer;
+            
+            // 加载待缴纳学费的申请
+            loadPendingApplications();
+            
+            // 渲染缴纳记录表格
+            renderPaymentRecords();
+            
+            // 支付按钮点击事件
+            $(document).on('click', '.pay-btn', function() {
+                const applicationId = $(this).data('id');
+                const appTitle = $(this).data('title');
+                const amount = $(this).data('amount');
+                
+                // 打开支付方式选择弹窗
+                layer.open({
+                    type: 1,
+                    title: `支付 - ${appTitle}`,
+                    area: ['500px', '300px'],
+                    content: $('#payment-method-modal').html(),
+                    success: function(layero) {
+                        // 绑定支付方式点击事件
+                        layero.find('.payment-card').click(function() {
+                            const method = $(this).data('method');
+                            processPayment(applicationId, method, amount);
+                            layer.closeAll();
+                        });
+                    }
+                });
+            });
+            
+            // 处理支付
+            async function processPayment(applicationId, method, amount) {
+                try {
+                    // 1. 获取申请详情
+                    const application = await getApplicationDetails(applicationId);
+                    if (!application) {
+                        layer.msg('获取申请详情失败', {icon: 5});
+                        return;
+                    }
+                    
+                    // 2. 首先检查是否已存在该申请的学费订单
+                    const checkRes = await axios.get(BaseUrl + '/api/tuition_payment/get_list', {
+                        params: {
+                            declaration_personnel: personInfo.user_id,
+                            major_name: application.major_name,
+                            size: 10
+                        },
+                        headers: {
+                            'x-auth-token': token
+                        }
+                    });
+                    
+                    let paymentId;
+                    let existingOrder = null;
+                    if (checkRes.data.result && checkRes.data.result.list.length > 0) {
+                        // 查找与当前申请匹配的订单
+                        existingOrder = checkRes.data.result.list.find(payment => 
+                            payment.major_name === application.major_name
+                        );
+                    }
+                    
+                    if (existingOrder) {
+                        // 如果已存在订单，更新支付状态
+                        paymentId = existingOrder.tuition_payment_id;
+                        await updatePaymentStatus(paymentId, method);
+                    } else {
+                        // 如果不存在订单，创建新订单
+                        paymentId = await createPaymentOrder(application, method, amount);
+                    }
+                    
+                    if (paymentId) {
+                        layer.msg('支付成功', {icon: 6});
+                        // 刷新页面数据
+                        setTimeout(() => {
+                            loadPendingApplications();
+                            renderPaymentRecords();
+                        }, 1000);
+                    }
+                } catch (error) {
+                    console.error('支付失败:', error);
+                    layer.msg('支付失败，请稍后重试', {icon: 5});
+                }
+            }
+            
+            // 更新支付状态
+            async function updatePaymentStatus(paymentId, method) {
+                await axios.post(
+                    `${BaseUrl}/api/tuition_payment/set?tuition_payment_id=${paymentId}`,
+                    {
+                        pay_state: "已支付",
+                        pay_type: method,
+                        update_time: new Date().toISOString().slice(0, 19).replace('T', ' ')
+                    },
+                    {
+                        headers: {
+                            'x-auth-token': token,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+            }
+            
+            // 获取申请详情
+            async function getApplicationDetails(applicationId) {
+                const res = await axios.get(BaseUrl + '/api/application_for_studying_abroad/get_list', {
+                    params: {
+                        application_for_studying_abroad_id: applicationId,
+                        size: 1
+                    },
+                    headers: {
+                        'x-auth-token': token
+                    }
+                });
+                
+                if (res.data.result && res.data.result.list.length > 0) {
+                    return res.data.result.list[0];
+                }
+                return null;
+            }
+            
+            // 创建支付订单
+            async function createPaymentOrder(application, method, amount) {
+                const newPayment = {
+                    name_of_institution: application.name_of_institution,
+                    major_name: application.major_name,
+                    declaration_personnel: personInfo.user_id,
+                    student_name: application.student_name,
+                    tuition_fee_amount: amount,
+                    pay_state: "已支付",
+                    pay_type: method,
+                    create_time: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                    update_time: new Date().toISOString().slice(0, 19).replace('T', ' ')
+                };
+                
+                const res = await axios.post(BaseUrl + '/api/tuition_payment/add', newPayment, {
+                    headers: {
+                        'x-auth-token': token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (res.data.result === 1) {
+                    // 获取刚创建的订单ID
+                    const getRes = await axios.get(BaseUrl + '/api/tuition_payment/get_list', {
+                        params: {
+                            declaration_personnel: personInfo.user_id,
+                            size: 1,
+                            orderby: 'create_time desc'
+                        },
+                        headers: {
+                            'x-auth-token': token
+                        }
+                    });
+                    
+                    if (getRes.data.result && getRes.data.result.list.length > 0) {
+                        return getRes.data.result.list[0].tuition_payment_id;
+                    }
+                }
+                
+                return null;
+            }
+            
+            // 加载待缴纳学费的申请
+        async function loadPendingApplications() {
+            try {
+                // 获取用户的专业申请记录
+                const res = await axios.get(BaseUrl + '/api/application_for_studying_abroad/get_list', {
+                    params: {
+                        student_id: personInfo.user_id,
+                        size: 20,
+                        orderby: 'create_time desc'
+                    },
+                    headers: {
+                        'x-auth-token': token
+                    }
+                });
+                
+                const container = document.getElementById('pending-applications');
+                
+                if (res.data.result && res.data.result.list.length > 0) {
+                    // 获取已支付的学费记录
+                    const paymentRes = await axios.get(BaseUrl + '/api/tuition_payment/get_list', {
+                        params: {
+                            declaration_personnel: personInfo.user_id,
+                            pay_state: "已支付",
+                            size: 20
+                        },
+                        headers: {
+                            'x-auth-token': token
+                        }
+                    });
+                    
+                    const paidApplications = new Set();
+                    if (paymentRes.data.result && paymentRes.data.result.list.length > 0) {
+                        paymentRes.data.result.list.forEach(payment => {
+                            paidApplications.add(payment.major_name);
+                        });
+                    }
+                    
+                    // 获取所有专业信息，用于查询学费
+                    const professionalRes = await axios.get(BaseUrl + '/api/professional_information/get_list', {
+                        params: {
+                            page: 1,
+                            size: 100
+                        },
+                        headers: {
+                            'x-auth-token': token
+                        }
+                    });
+                    
+                    let professionalList = [];
+                    if (professionalRes.data.result && professionalRes.data.result.list) {
+                        professionalList = professionalRes.data.result.list;
+                    } else {
+                        // 如果获取失败，使用模拟数据
+                        professionalList = [
+                            { major_name: '计算机科学与技术', tuition_information: '30000元/年' },
+                            { major_name: '电子信息工程', tuition_information: '28000元/年' },
+                            { major_name: '机械工程', tuition_information: '26000元/年' },
+                            { major_name: '国际经济与贸易', tuition_information: '24000元/年' },
+                            { major_name: '汉语国际教育', tuition_information: '22000元/年' },
+                            { major_name: '材料科学与工程', tuition_information: '27000元/年' },
+                            { major_name: '自动化', tuition_information: '29000元/年' },
+                            { major_name: '软件工程', tuition_information: '32000元/年' }
+                        ];
+                    }
+                    
+                    let html = '';
+                    res.data.result.list.forEach(app => {
+                        // 只显示未支付的申请
+                        if (!paidApplications.has(app.major_name)) {
+                            // 从专业信息中获取真实学费金额
+                            const professional = professionalList.find(p => p.major_name === app.major_name);
+                            let amount = '';
+                            if (professional && professional.tuition_information) {
+                                // 提取数字部分
+                                amount = professional.tuition_information.replace(/[^0-9]/g, '');
+                            } else {
+                                // 如果找不到，使用模拟生成的金额
+                                amount = generateTuitionAmount(app.major_name);
+                            }
+                            
+                            html += `
+                                <div class="app-item">
+                                    <div class="app-header">
+                                        <div class="app-title">${app.major_name}</div>
+                                    </div>
+                                    <div class="app-details">院校：${app.name_of_institution || '北京理工大学'}</div>
+                                    <div class="app-details">学生姓名：${app.student_name}</div>
+                                    <div class="app-details">申请时间：${new Date(app.create_time).toLocaleString()}</div>
+                                    <div class="app-amount">学费金额：¥${amount}</div>
+                                    <button class="pay-btn" data-id="${app.application_for_studying_abroad_id}" data-title="${app.major_name}" data-amount="${amount}">立即支付</button>
+                                </div>
+                            `;
+                        }
+                    });
+                    
+                    container.innerHTML = html || '<div class="no-data">暂无待缴纳学费的申请</div>';
+                } else {
+                    container.innerHTML = '<div class="no-data">暂无专业申请记录</div>';
+                }
+            } catch (error) {
+                console.error('获取申请列表失败:', error);
+                document.getElementById('pending-applications').innerHTML = '<div class="no-data">获取申请记录失败</div>';
+            }
+        }
+            
+            // 根据专业生成模拟学费金额
+            function generateTuitionAmount(majorName) {
+                // 简单的哈希函数生成模拟学费
+                let hash = 0;
+                for (let i = 0; i < majorName.length; i++) {
+                    hash = majorName.charCodeAt(i) + ((hash << 5) - hash);
+                }
+                // 生成10000-50000之间的学费金额
+                return Math.abs(hash % 40000) + 10000;
+            }
+            
+            // 渲染缴纳记录表格
+            function renderPaymentRecords() {
+                layui.table.render({
+                    elem: '#payment-records',
+                    url: `${BaseUrl}/api/tuition_payment/get_list`,
+                    headers: {
+                        'x-auth-token': token
+                    },
+                    page: true,
+                    limit: 10,
+                    request: {
+                        limitName: 'size'
+                    },
+                    where: {
+                        declaration_personnel: personInfo.user_id,
+                        orderby: 'create_time desc'
+                    },
+                    cols: [[
+                        {field: 'name_of_institution', title: '院校名称', width: 200},
+                        {field: 'major_name', title: '专业名称', width: 200},
+                        {field: 'student_name', title: '学生姓名', width: 150},
+                        {field: 'tuition_fee_amount', title: '学费金额', width: 150, templet: function(d) { return '¥' + d.tuition_fee_amount; }},
+                        {field: 'pay_state', title: '支付状态', width: 120, templet: function(d) {
+                            return d.pay_state === '已支付' ? '<span style="color: #27ae60;">已支付</span>' : '<span style="color: #e74c3c;">未支付</span>';
+                        }},
+                        {field: 'pay_type', title: '支付方式', width: 120},
+                        {field: 'create_time', title: '创建时间', width: 200, templet: function(d) {
+                            return new Date(d.create_time).toLocaleString();
+                        }},
+                        {field: 'update_time', title: '更新时间', width: 200, templet: function(d) {
+                            return new Date(d.update_time).toLocaleString();
+                        }}
+                    ]],
+                    parseData: function(res) {
+                        return {
+                            "code": 0,
+                            "msg": "",
+                            "count": res.result.count,
+                            "data": res.result.list
+                        };
+                    },
+                    done: function(res) {
+                        if (res.data.length === 0) {
+                            this.elem.next('.layui-table-view').find('.layui-table-main').html('<div class="no-data">暂无缴纳记录</div>');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

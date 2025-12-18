@@ -1,0 +1,236 @@
+<!-- 首页 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>首页</title>
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="../js/index.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <script src="../js/echarts.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/diy.css">
+
+</head>
+<style>
+    canvas {
+        position: relative !important;
+    }
+
+    #test div::before {
+        content: '';
+        width: 100px;
+        position: absolute;
+        top: 154px;
+        right: 129px;
+        z-index: 999;
+        height: 20px;
+        background-color: #FFFFFF;
+    }
+
+    #i {
+        position: fixed;
+        top: 400px;
+        right: 100px;
+        z-index: 1000;
+    }
+
+</style>
+
+<body>
+<div>
+    <div class="layui-col-md">
+        <div class="layui-panel">
+            <div id="i"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 欢迎信息 -->
+<div class="layui-container" style="margin-top: 30px;">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <h2>欢迎使用留学生报名网站管理系统</h2>
+                </div>
+                <div class="layui-card-body">
+                    <p>这是系统的管理后台，您可以通过左侧菜单进行各种操作。</p>
+                    <p>如果您是第一次使用系统，建议先查看个人资料并修改初始密码。</p>
+                    <p>根据您的权限，系统会自动显示您可以访问的功能模块。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+
+                                                                                                                                    <div class="box">
+                    <div id="application_for_studying_abroad" style="width: 600px;height:400px; display: none"></div>
+                </div>
+                                                                                                                                                                                                                                                                                                
+    
+    
+    <script src="../js/base.js"></script>
+<script type="text/javascript">
+    var BaseUrl = baseUrl()
+    let personInfo;
+    try {
+        personInfo = JSON.parse(sessionStorage.personInfo)
+    } catch (error) {
+        console.error('解析用户信息出错:', error)
+        // 如果解析失败，提供默认值
+        personInfo = { user_group: '普通用户', user_id: 0 }
+    }
+
+    // 请求数据
+    async function get_list() {
+        let permissions = [];
+        try {
+            let {data: ren} = await axios.get(BaseUrl + '/api/auth/get_list', {
+                params: {
+                    user_group: personInfo.user_group
+                }
+            });
+            permissions = ren.result?.list || [];
+        } catch (error) {
+            console.error('获取权限列表失败:', error);
+            permissions = [];
+        }
+
+        function $get_power(path) {
+            var obj;
+            for (var i = 0; i < permissions.length; i++) {
+                var o = permissions[i];
+                if (o.path === path) {
+                    obj = o;
+                    break;
+                }
+            }
+            return obj;
+        }
+
+        /**
+         * 是否有统计字段的权限
+         */
+        function $check_figure(path) {
+            var o = $get_power(path);
+            if (o) {
+                try {
+                    var option = JSON.parse(o.option);
+                    return option.figure;
+                } catch (e) {
+                    console.error('解析权限选项失败:', e);
+                }
+            }
+            return false;
+        }
+
+        function $check_comment(path) {
+            var o = $get_power(path);
+            if (o) {
+                try {
+                    var option = JSON.parse(o.option);
+                    return option.can_show_comment;
+                } catch (e) {
+                    console.error('解析评论权限失败:', e);
+                }
+            }
+            return false;
+        }
+
+        let application_for_studying_abroad = document.querySelector('#application_for_studying_abroad');
+        if (application_for_studying_abroad) {
+            if (personInfo.user_group === '管理员' || $check_figure('/application_for_studying_abroad/table')) {
+                application_for_studying_abroad.style.display = 'block';
+            } else {
+                application_for_studying_abroad.style.display = 'none';
+            }
+        }
+    }
+
+    get_list()
+
+    async function echartsFun(id, url, title) {
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(id));
+
+        let user_group = personInfo.user_group
+        let user_id = personInfo.user_id
+
+                                                                                                                                                                                                                                                                                if (user_group != '管理员') {
+                                                                    let sqlwhere = "(";
+                                                                                                                                                                                                                                                                                                                                                            if (user_group == "学生用户" && title == '留学申报') {
+                                                sqlwhere += "declaration_personnel = " + user_id + " or ";
+                                            }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        if (sqlwhere.length > 1) {
+                                        sqlwhere = sqlwhere.substr(0, sqlwhere.length - 4);
+                                        sqlwhere += ")";
+                                        url += "&sqlwhere=" + sqlwhere
+                                    }
+                                                            }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        let {data: res} = await axios.get(url)
+
+        let arr = []
+
+        arr = res.result.list.map((o) => {
+            return {
+                name: o[1],
+                value: o[0]
+            };
+        });
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: title,
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left'
+            },
+            series: [
+                {
+                    name: '参数',
+                    type: 'pie',
+                    radius: '50%',
+                    data: arr,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+
+                                                                                                                                                                                                echartsFun('application_for_studying_abroad', BaseUrl + '/api/application_for_studying_abroad/list_group?groupby=major_name', '留学申报')
+                                                                                                                                                                                                                                                                                                                                                                                                
+
+    let ii = document.querySelector('#i')
+    let i
+
+    async function axioss() {
+        const {data: res} = await axios.get(BaseUrl + '/api/user/count')
+        i = res.result
+        ii.innerHTML = "用户数量" + i + "人"
+    }
+
+    axioss()
+</script>
+</body>
+
+</html>

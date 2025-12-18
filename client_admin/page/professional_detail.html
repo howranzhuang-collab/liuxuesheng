@@ -1,0 +1,381 @@
+<!-- 专业详情页面 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>专业详情 - 留学生报名网站</title>
+    <script src="../js/index.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/diy.css">
+    <style>
+        .nav-container {
+            background-color: #34495e;
+            color: white;
+        }
+        .nav-bar {
+            margin: 0 auto;
+            width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .nav-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #1abc9c;
+        }
+        .user-info {
+            display: flex;
+            gap: 10px;
+        }
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .page-title {
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .detail-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .detail-header {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-image {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .detail-info {
+            flex: 1;
+        }
+        .detail-info h2 {
+            font-size: 24px;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+        .detail-info h3 {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .meta-label {
+            font-weight: bold;
+            color: #555;
+        }
+        .meta-value {
+            color: #34495e;
+        }
+        .detail-content {
+            margin-bottom: 40px;
+        }
+        .content-section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        .section-content {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .btn {
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .back-btn {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .back-btn:hover {
+            background-color: #7f8c8d;
+        }
+        .apply-btn {
+            background-color: #1abc9c;
+            color: white;
+        }
+        .apply-btn:hover {
+            background-color: #16a085;
+        }
+        .tuition-info {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-container">
+        <div class="nav-bar">
+            <div class="nav-title">留学生报名网站管理系统</div>
+            <div class="nav-links">
+                <a href="./user_home.html">Home</a>
+                <a href="./notice/table.html">公告信息</a>
+                <a href="#">留学资讯</a>
+                <a href="./student_account.html">个人账户</a>
+                <a href="./info.html">个人资料</a>
+                <a href="./application_guide/table.html">申请指南</a>
+                <a href="#">关于我们</a>
+                <a href="./professional_info_client.html">专业信息</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeText">欢迎您</span>
+                <a href="#" id="logoutBtn">退出</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="container">
+        <h1 class="page-title">专业详情</h1>
+        
+        <!-- 专业详情 -->
+        <div class="detail-section" id="detailSection">
+            <!-- 专业详情将通过JavaScript动态生成 -->
+            <div style="text-align: center; padding: 60px; color: #7f8c8d;">
+                <div class="layui-icon layui-icon-loading layui-anim layui-anim-spin" style="font-size: 60px;"></div>
+                <p style="margin-top: 20px; font-size: 16px;">加载中...</p>
+            </div>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="action-buttons">
+            <button class="btn back-btn" onclick="goBack()">返回列表</button>
+            <button class="btn apply-btn" id="applyBtn" onclick="applyForProfessional()">立即申请</button>
+        </div>
+    </div>
+
+    <script src="../js/base.js"></script>
+    <script type="text/javascript">
+        var BaseUrl = baseUrl()
+        let personInfo;
+        let currentProfessionalId = '';
+        
+        try {
+            personInfo = JSON.parse(sessionStorage.personInfo)
+            // 显示欢迎信息
+            if (personInfo) {
+                document.getElementById('welcomeText').textContent = `欢迎您，${personInfo.nickname || personInfo.username}`;
+            }
+        } catch (error) {
+            console.error('解析用户信息出错:', error)
+            // 如果解析失败，跳转到登录页面
+            window.location.href = '../index.html';
+        }
+
+        // 退出登录
+        document.getElementById('logoutBtn').onclick = async function() {
+            try {
+                await axios.get(BaseUrl + '/api/user/quit', {
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            } catch (error) {
+                console.error('退出登录失败:', error);
+                // 即使API请求失败，也清除本地数据并重定向
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            }
+        };
+        
+        // 获取URL参数
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        // 获取专业详情
+        async function getProfessionalDetail() {
+            currentProfessionalId = getUrlParam('id');
+            
+            if (!currentProfessionalId) {
+                document.getElementById('detailSection').innerHTML = 
+                    '<div style="text-align: center; padding: 60px; color: #7f8c8d;">参数错误，无法获取专业信息</div>';
+                document.getElementById('applyBtn').style.display = 'none';
+                return;
+            }
+            
+            try {
+                const response = await axios.get(BaseUrl + '/api/professional_information/get_obj', {
+                    params: {
+                        professional_information_id: currentProfessionalId
+                    },
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+                
+                if (response.data.code === 200) {
+                    renderProfessionalDetail(response.data.result.obj);
+                    // 增加点击数
+                    incrementClicks();
+                } else {
+                    document.getElementById('detailSection').innerHTML = 
+                        `<div style="text-align: center; padding: 60px; color: #7f8c8d;">${response.data.msg}</div>`;
+                    document.getElementById('applyBtn').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('获取专业详情出错:', error);
+                document.getElementById('detailSection').innerHTML = 
+                    '<div style="text-align: center; padding: 60px; color: #7f8c8d;">获取专业详情失败</div>';
+                document.getElementById('applyBtn').style.display = 'none';
+            }
+        }
+        
+        // 渲染专业详情
+        function renderProfessionalDetail(professional) {
+            const section = document.getElementById('detailSection');
+            
+            const html = `
+                <div class="detail-header">
+                    <img src="${professional.cover_photo ? fullUrl(BaseUrl, professional.cover_photo) : '../img/default.png'}" class="detail-image">
+                    <div class="detail-info">
+                        <h2>${professional.name_of_institution || '未知院校'}</h2>
+                        <h3>${professional.major_name || '未知专业'}</h3>
+                        <div class="detail-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">学费：</span>
+                                <span class="meta-value tuition-info">${professional.tuition_information || '暂无信息'}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">点击数：</span>
+                                <span class="meta-value">${professional.hits || 0}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">创建时间：</span>
+                                <span class="meta-value">${professional.create_time ? new Date(professional.create_time).toLocaleString() : '暂无信息'}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">更新时间：</span>
+                                <span class="meta-value">${professional.update_time ? new Date(professional.update_time).toLocaleString() : '暂无信息'}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="content-section">
+                        <div class="section-title">专业介绍</div>
+                        <div class="section-content">${professional.professional_introduction || '暂无介绍'}</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="section-title">申请要求</div>
+                        <div class="section-content">${professional.application_requirements || '暂无信息'}</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="section-title">学位介绍</div>
+                        <div class="section-content">${professional.degree_introduction || '暂无信息'}</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="section-title">就业情况</div>
+                        <div class="section-content">${professional.employment_situation || '暂无信息'}</div>
+                    </div>
+                </div>
+            `;
+            
+            section.innerHTML = html;
+        }
+        
+        // 增加点击数
+        async function incrementClicks() {
+            try {
+                await axios.get(BaseUrl + '/api/professional_information/increment_clicks', {
+                    params: {
+                        professional_information_id: currentProfessionalId
+                    },
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+            } catch (error) {
+                console.error('增加点击数出错:', error);
+                // 点击数统计失败不影响页面显示
+            }
+        }
+        
+        // 返回列表
+        function goBack() {
+            window.location.href = './professional_info_client.html';
+        }
+        
+        // 申请专业
+        function applyForProfessional() {
+            window.location.href = `./professional_apply.html?id=${currentProfessionalId}`;
+        }
+        
+        // 页面加载时获取专业详情
+        window.onload = function() {
+            getProfessionalDetail();
+        };
+
+        // 初始化layui组件
+        layui.use(['element', 'layer'], function() {
+            var element = layui.element;
+            var layer = layui.layer;
+        });
+    </script>
+</body>
+
+</html>

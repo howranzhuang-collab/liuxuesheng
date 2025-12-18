@@ -1,0 +1,208 @@
+<!-- 用户首页 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>留学生报名网站</title>
+    <script src="../js/index.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/diy.css">
+    <style>
+        .nav-container {
+            background-color: #34495e;
+            color: white;
+        }
+        .nav-bar {
+            margin: 0 auto;
+            width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .nav-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .nav-links a:hover {
+            color: #1abc9c;
+        }
+        .user-info {
+            display: flex;
+            gap: 10px;
+        }
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: url('../img/bg.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        .banner-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+        .banner-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .banner-content p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background-color: #1abc9c;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+        .btn-primary:hover {
+            background-color: #16a085;
+        }
+        .content-section {
+            width: 1200px;
+            margin: 40px auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #34495e;
+        }
+        .info-cards {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .info-card {
+            width: 30%;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .info-card h3 {
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+        .info-card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-container">
+        <div class="nav-bar">
+            <div class="nav-title">留学生报名网站管理系统</div>
+            <div class="nav-links">
+                <a href="./user_home.html">Home</a>
+                <a href="./notice/table.html">公告信息</a>
+                <a href="#">留学资讯</a>
+                <a href="./student_account.html">个人账户</a>
+                <a href="./info.html">个人资料</a>
+                <a href="./application_guide/table.html">申请指南</a>
+                <a href="#">关于我们</a>
+                <a href="./professional_info_client.html">专业信息</a>
+                <a href="./professional_apply.html">专业申报</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeText">欢迎您</span>
+                <a href="#" id="logoutBtn">退出</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 轮播图 -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1>英国硕士留学指南</h1>
+            <p>轻松进军心仪名校</p>
+            <a href="./application_for_studying_abroad/table.html" class="btn-primary">立即申请</a>
+        </div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="content-section">
+        <h2 class="section-title">留学服务</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>专业信息</h3>
+                <p>提供全面的海外院校专业信息，帮助您选择最适合的学习方向。</p>
+                <a href="./professional_info_client.html" class="btn-primary" style="margin-top: 20px; display: inline-block;">查看专业</a>
+            </div>
+            <div class="info-card">
+                <h3>留学申报</h3>
+                <p>在线提交留学申请，跟踪申请进度，简化申请流程。</p>
+                <a href="./professional_apply.html" class="btn-primary" style="margin-top: 20px; display: inline-block;">开始申报</a>
+            </div>
+            <div class="info-card">
+                <h3>学费缴纳</h3>
+                <p>安全便捷的在线缴费服务，支持多种支付方式。</p>
+                <a href="./tuition_payment/table.html" class="btn-primary" style="margin-top: 20px; display: inline-block;">缴纳学费</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/base.js"></script>
+    <script type="text/javascript">
+        var BaseUrl = baseUrl()
+        let personInfo;
+        try {
+            personInfo = JSON.parse(sessionStorage.personInfo)
+            // 显示欢迎信息
+            if (personInfo) {
+                document.getElementById('welcomeText').textContent = `欢迎您，${personInfo.nickname || personInfo.username}`;
+            }
+        } catch (error) {
+            console.error('解析用户信息出错:', error)
+            // 如果解析失败，跳转到登录页面
+            window.location.href = '../index.html';
+        }
+
+        // 退出登录
+        document.getElementById('logoutBtn').onclick = async function() {
+            try {
+                await axios.get(BaseUrl + '/api/user/quit', {
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            } catch (error) {
+                console.error('退出登录失败:', error);
+                // 即使API请求失败，也清除本地数据并重定向
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            }
+        };
+
+        // 初始化layui组件
+        layui.use(['element', 'layer'], function() {
+            var element = layui.element;
+            var layer = layui.layer;
+        });
+    </script>
+</body>
+
+</html>

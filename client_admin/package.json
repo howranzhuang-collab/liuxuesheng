@@ -1,0 +1,25 @@
+{
+  "name": "client_admin",
+  "version": "1.0.0",
+  "description": "留学生报名网站管理系统前端",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8080 -o",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "admin",
+    "management",
+    "education"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "layui": "^2.8.6",
+    "axios": "^0.27.2",
+    "echarts": "^5.3.2"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

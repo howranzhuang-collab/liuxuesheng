@@ -1,0 +1,2076 @@
+.layui-logo {
+    width: 235px !important;
+}
+
+.layui-side li {
+    width: 235px !important;
+    z-index: 3;
+}
+
+.layui-layout-body,
+.layui-side,
+.layui-side-scroll {
+    padding-right: 35px;
+}
+
+.layui-laypage-count::before {
+    content: '合计';
+}
+
+.table {
+    margin-left: 35px;
+}
+
+.section1 h1 {
+    margin-left: 60px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1296db;
+}
+
+.layui-table img {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.layui-nav .layui-nav-item a {
+    position: relative;
+    font-size: 14px;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.layui-table-cell {
+    line-height: 100px;
+    height: 100px;
+}
+
+.section1 .table .layui-form .layui-table-box .layui-table-header {
+    height: 60px;
+}
+
+.layui-table-header .layui-table thead tr th .layui-table-cell {
+    line-height: 3;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* 滑动验证 */
+.login body article .warp .layui-container .layui-row .layui-form .wrap {
+    width: 400px !important;
+    margin: auto !important;
+}
+
+.login body article .warp .layui-container .layui-row .layui-form .wrap .banner {
+    width: 400px !important;
+    height: 300px !important;
+}
+
+/*  前面是固定模块 勿动  */
+
+article {
+    width: 100%;
+    height: 100vh;
+}
+
+.sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-textarea {
+    width: 430px !important;
+}
+
+.sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-layedit {
+    border: 2px solid;
+    margin-left: 60px;
+}
+
+.layui-layedit-tool {
+    border-bottom: 1px solid;
+}
+
+.section1 .buts {
+    display: flex;
+    justify-content: space-around;
+}
+
+.section1 .buts .layui-btn {
+    height: 40px;
+    background-color: #769fcd !important;
+    display: inline-block;
+    font-size: 18px;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    border-radius: 6px;
+    background-clip: padding-box;
+    box-shadow: 0 0 0 -2px #cff09e, 0 0 0 -1px #82afd9;
+    border: none;
+    transition: all .3s;
+    line-height: 40px;
+    width: 150px;
+}
+.section1 .buts .layui-btn:hover {
+    background: #1296db !important;
+}
+
+.section1 .manu .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 245px;
+}
+
+
+/* 防止谷歌游览器自动填充账号密码时的背景颜色--登录页· */
+.login body .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input:-webkit-autofill {
+    -webkit-text-fill-color: #222 !important;
+    background: transparent;
+    transition: background-color 50000s ease-in-out 0s;
+}
+
+/* 防止谷歌游览器自动填充账号密码时的背景颜色--注册页 */
+.register body .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input:-webkit-autofill {
+    -webkit-text-fill-color: #222 !important;
+    background: transparent;
+    transition: background-color 50000s ease-in-out 0s;
+}
+
+/* 防止谷歌游览器自动填充账号密码时的背景颜色--忘记密码 */
+.forgot body .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input:-webkit-autofill {
+    -webkit-text-fill-color: #222 !important;
+    background: transparent;
+    transition: background-color 50000s ease-in-out 0s;
+}
+
+.layui-col-md .layui-panel #i {
+    width: 175px;
+    height: 70px;
+    line-height: 70px;
+    right: 20px !important;
+    background: url(../img/biankuang.png) no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+}
+
+
+
+.section1 .layui-form-item .layui-form-label {
+    width: 130px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #769fcd;
+}
+
+.section1 .layui-form-item .layui-input-block .layui-input {
+    max-width: 245px;
+}
+
+/* .section1 .manu .layui-form .layui-form-item{
+    display: flex;
+    flex-wrap: wrap;
+}
+*/
+
+.section1 .manu .layui-form .layui-form-item {
+    display: flex;
+}
+
+.section1 .manu .layui-form .layui-form-item .layui-input-block {
+    margin-left: 0;
+}
+
+.section1 .manu .layui-form .layui-form-item>div {
+    /* width: 500px; */
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.section1 .manu .layui-form .layui-form-item .layui-input-block .layui-unselect .layui-anim {
+    min-width: 245px !important;
+    left: 50px !important;
+}
+
+.layui-form-select .layui-edge {
+    right: 1295px !important;
+}
+
+/* .sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-upload-drag{
+    right: 100px;
+} */
+
+
+/* 登录界面 */
+.login body article .warp {
+    background: url(../img/bg.jpg) no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.login body article .warp .layui-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign_in .warp .layui-container .layui-row .layui-form #mall_users .layui-form-item .layui-upload .layui-upload-list #resume_img {
+    width: 200px;
+    height: 200px;
+}
+
+.login body article .warp .layui-container .layui-row {
+    position: relative;
+    width: 1100px;
+    min-height: 620px;
+    text-align: center;
+    background: rgba(255, 255, 255, .2);
+    /* background: url(../img/login-bg.png) no-repeat; */
+    /* background-position: center; */
+    /* background-size: cover; */
+    padding-bottom: 25px;
+    z-index: 1;
+}
+
+.login body article .warp .layui-container .layui-row::before {
+    content: "";
+    position: absolute;
+    width: 50%;
+    z-index: -1;
+    right: 0;
+    border: 0px solid transparent;
+    background: #fff;
+    height: 100%;
+}
+
+
+@keyframes Denglu-weilei {
+    form {
+        transform: translateX(-50px);
+
+    }
+
+    to {
+        transform: translateX(50px);
+
+    }
+
+}
+
+.login body article .warp .layui-container .layui-row .layui-form {
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.login body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    color: #1296db;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: end;
+    width: 80px;
+    padding: 9px 5px !important;
+}
+
+
+.login body article .warp .layui-container .layui-row .layui-form .layui-form-item {
+    width: 400px;
+}
+
+
+
+
+/* @keyframes fliplnX{
+    0%{
+        transform: perspective(400px) rotateX(90deg);
+        -webkit-transform: perspective(400px) rotateX(90deg);
+        opacity: 0;
+    }
+    0%,40%{
+        animation-timing-function: ease-in;
+        -webkit-animation-timing-function: ease-in;
+    }
+    40%{
+        text-replace: perspective(400px) rotateX(-20deg);
+        -webkit-transform: perspective(400px) rotateX(-20deg);
+    }
+    60%{
+        transform: perspective(400px) rotateX(10deg);
+        -webkit-transform: perspective(400px) rotateX(10deg);
+        opacity: 1;
+    }
+    80%{
+        transform: perspective(400px) rotateX(-5deg);
+        -webkit-transform: perspective(400px) rotateX(-5deg);
+    }
+    100%{
+        transform: perspective(400px);
+        -webkit-transform: perspective(400px);
+    }
+} */
+
+
+.login body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 245px;
+    border: 0;
+    display: inline-block;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    -webkit-transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgb(0, 0, 0/0%);
+    position: relative;
+    overflow: hidden;
+    font-size: 18px;
+}
+
+
+.login body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block::before {
+    content: "";
+    width: 50px;
+    height: 50px;
+    top: -15px;
+    right: 3px;
+    position: absolute;
+    background: url(../img/weilei1.png) no-repeat;
+    background-size: 100% 100%;
+    transform: scale(0);
+    z-index: 1;
+
+}
+
+
+.forgot body .sign_in .warp .layui-container .layui-row .layui-form #mall_users .layui-form-item .layui-upload div .layui-progress {
+    left: 155px;
+}
+
+.forgot body article .warp {
+    background-image: url(../img/warper_bg.jpg);
+    /* background: linear-gradient(45deg,#667878, #899b9f,#f1edca); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.forgot body article .warp .layui-container {
+    /* padding-top: 180px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.forgot body .sign_in .warp .layui-container .layui-row .layui-form #mall_users .layui-form-item .layui-upload .layui-upload-list #resume_img {
+    width: 200px;
+    height: 200px;
+}
+
+.forgot body article .warp .layui-container .layui-row {
+    width: 500px;
+    border-radius: 25px;
+    text-align: center;
+    background: url(../img/kv_icon2.png) no-repeat #fff;
+    border-top: 4px solid #222;
+    border-bottom: 4px solid #222;
+    background-position: center;
+    background-size: cover;
+    padding-bottom: 25px;
+}
+
+.forgot body article .warp .layui-container .layui-row .layui-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+}
+
+.forgot body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    color: #1296db;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: end;
+    width: 80px;
+    padding: 9px 5px !important;
+}
+
+
+.forgot body article .warp .layui-container .layui-row div span h1 {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #769fcd;
+}
+
+.forgot body article .warp .layui-container .layui-row .layui-form .layui-form-item {
+    width: 400px;
+}
+
+
+.forgot body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block {
+    position: relative;
+}
+
+
+
+.forgot body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 245px;
+    max-width: 245px;
+
+    height: auto;
+    background: transparent;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+    padding: 10px;
+
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    -webkit-transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgb(0, 0, 0/0%);
+    position: relative;
+    overflow: hidden;
+    font-size: 18px;
+}
+
+.forgot body .sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-unselect {
+    max-width: 245px;
+}
+
+.forgot body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input::placeholder {
+    color: rgba(0, 0, 0, .2);
+}
+
+
+/* 注册页面 */
+.register body .sign_in .warp .layui-container .layui-row .layui-form #mall_users .layui-form-item .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+.register body article .warp {
+    background-image: url(../img/warper_bg.jpg);
+    /* background:linear-gradient(45deg,#667878, #899b9f,#f1edca); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.register body article .warp .layui-container {
+    /* padding-top: 180px; */
+    padding-bottom: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register body .sign_in .warp .layui-container .layui-row .layui-form #mall_users .layui-form-item .layui-upload .layui-upload-list #resume_img {
+    width: 200px;
+    height: 200px;
+}
+
+.register body .sign_in .warp .layui-container .layui-row .layui-form #mall_users .layui-form-item .layui-upload div .layui-progress .layui-progress-bar span {
+    line-height: 1 !important;
+}
+
+.register body article .warp .layui-container .layui-row {
+    width: 500px;
+    border-radius: 25px;
+    text-align: center;
+    background: url(../img/kv_icon2.png) no-repeat #fff;
+    border-top: 4px solid #022e6b;
+    border-bottom: 4px solid #022e6b;
+    background-size: 100% 100%;
+    padding-bottom: 25px;
+}
+
+.register body article .warp .layui-container .layui-row .layui-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+}
+
+.register body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    color: #1296db;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: end;
+    width: 80px;
+    padding: 9px 5px !important;
+}
+
+
+.register body article .warp .layui-container .layui-row div span h1 {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #769fcd;
+}
+
+.register body article .warp .layui-container .layui-row .layui-form .layui-form-item {
+    width: 400px;
+}
+
+.register body .sign_in .warp .layui-container .layui-row .layui-form .layui-upload {
+    width: 400px;
+}
+
+.register body .sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-textarea {
+    width: 300px !important;
+}
+
+
+
+
+
+
+.register body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 245px;
+    max-width: 245px;
+    height: auto;
+    background: transparent;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+    padding: 10px;
+
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    -webkit-transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgb(0, 0, 0/0%);
+    position: relative;
+    overflow: hidden;
+    font-size: 18px;
+}
+.register article .warp .layui-btn-container {
+    padding-left: 0;
+}
+
+/* “注册”页面里的“备注”一栏 */
+.register body .sign_in .warp .layui-container .layui-row .layui-form #mall_users .layui-form-item:last-of-type .layui-input-block::before {
+    content: "";
+    width: 50px;
+    height: 50px;
+    top: -15px;
+    right: -30px;
+    position: absolute;
+    background: url(../img/weilei1.png) no-repeat;
+    background-size: 100% 100%;
+    transform: scale(0);
+    z-index: 1;
+}
+
+.register body .sign_in .warp .layui-container .layui-row .layui-form #mall_users .layui-form-item:last-of-type .layui-input-block:hover::before {
+    transform: scale(1) rotate(45deg);
+    transition: all .7s;
+}
+
+.register body .sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-unselect {
+    max-width: 245px;
+}
+
+.register body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input::placeholder {
+    color: rgba(0, 0, 0, .2);
+}
+
+
+/*  */
+.layui-layout .layui-header .layui-nav {
+    text-align: center;
+    padding-left: 0 !important;
+    height: 100%;
+    width: 100%;
+}
+
+.layui-layout .layui-header .layui-nav li h1 {
+    margin-left: 35px;
+    color: #fff;
+    background: #82afd9;
+    width: 100%;
+    line-height: 60px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.layui-layout .layui-header .layui-nav .layui-nav-item {
+    float: right;
+    font-size: 20px;
+}
+
+.layui-layout .layui-side .layui-side-scroll #uls .layui-nav-item a {
+    font-size: 14px;
+    text-align: center;
+}
+
+
+.layui-layout .layui-side .layui-side-scroll #uls {
+    background: transparent !important;
+}
+
+.layui-layout .layui-side .layui-side-scroll #uls .layui-nav-item:last-of-type {
+    cursor: pointer;
+    background: #95e1d3;
+}
+
+.layui-layout-admin .layui-logo {
+    position: relative;
+    z-index: 1;
+    background: #769fcd !important;
+}
+
+.layui-layout-admin .layui-logo a {
+    color: #fff !important;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+
+
+
+/* “公共管理”里的“轮播图” */
+.sign_in .slides .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .slides .layui-btn-container {
+    text-align: center;
+}
+
+
+article .slides .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #D35240;
+}
+
+article .warp .layui-container .layui-row .layui-form {
+    flex-direction: column;
+    align-items: center;
+}
+
+article .slides {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+
+article .slides .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .slides .layui-container {
+    margin-top: 30px;
+}
+
+article .slides .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .slides .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .slides .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+.sign_in .slides .layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .slides .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .slides .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .slides .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .slides .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+
+/* “公共管理”里的“公告栏” */
+.sign_in .notice .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .notice .layui-btn-container {
+    text-align: center;
+}
+
+
+article .notice .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #D35240;
+}
+
+
+article .notice {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+article .notice .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .notice .layui-container {
+    margin-top: 30px;
+}
+
+article .notice .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .notice .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .notice .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 145px;
+}
+
+.sign_in .notice .layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .notice .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .notice .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .notice .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .notice .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+/* “用户管理”里的“管理员” */
+.sign_in .user .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .user .layui-btn-container {
+    text-align: center;
+}
+
+article .user .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #D35240;
+}
+
+
+article .user {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+
+article .user .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .user .layui-container {
+    margin-top: 30px;
+}
+
+article .user .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .user .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .user .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 145px;
+}
+
+.sign_in .user .layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .user .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .user .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .user .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .user .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+
+/* “信息管理”里的“论坛” */
+.sign_in .forum .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .forum .layui-btn-container {
+    text-align: center;
+}
+
+
+article .forum .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #D35240;
+}
+
+
+article .forum {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+article .forum .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .forum .layui-container {
+    margin-top: 30px;
+}
+
+article .forum .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .forum .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .forum .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 145px;
+}
+
+.sign_in .forum .layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .forum .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .forum .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .forum .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .forum .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+
+
+/* “信息管理”里的“论坛分类” */
+.sign_in .forum_type .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .forum_type .layui-btn-container {
+    text-align: center;
+}
+
+
+article .forum_type .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #D35240;
+}
+
+
+
+article .forum_type {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+
+article .forum_type .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .forum_type .layui-container {
+    margin-top: 30px;
+}
+
+article .forum_type .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .forum_type .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .forum_type .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 145px;
+}
+
+.sign_in .forum_type .layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .forum_type .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .forum_type .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .forum_type .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .forum_type .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+
+
+/* “信息管理”里的“测试新闻” */
+.sign_in .article .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .article .layui-btn-container {
+    text-align: center;
+}
+
+
+article .article .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #D35240;
+}
+
+
+article .article {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+
+article .article .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .article .layui-container {
+    margin-top: 30px;
+}
+
+article .article .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .article .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .article .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 145px;
+}
+
+.sign_in .article .layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .article .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .article .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .article .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .article .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+
+
+/* “信息管理”里的“资讯分类” */
+.sign_in .article_type .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .article_type .layui-btn-container {
+    text-align: center;
+}
+
+
+article .article_type .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #D35240;
+}
+
+
+
+article .article_type {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+
+article .article_type .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .article_type .layui-container {
+    margin-top: 30px;
+}
+
+article .article_type .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .article_type .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .article_type .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 145px;
+}
+
+.sign_in .article_type.layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .article_type .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .article_type .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .article_type .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .article_type .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+
+/* “信息管理”里的“商城测试” */
+.sign_in .exam .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .exam .layui-btn-container {
+    text-align: center;
+}
+
+
+
+
+
+article .warp .layui-container .layui-row .layui-form .layui-form {
+    padding-left: 0;
+}
+article .exam {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+
+article .exam .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .exam .layui-container {
+    margin-top: 30px;
+}
+
+article .exam .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .exam .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .exam .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 145px;
+}
+
+.sign_in .article_type.layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .exam .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .exam .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .exam .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .exam .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+/* “分类列表” */
+.sign_in .goods_type .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .goods_type .layui-btn-container {
+    text-align: center;
+}
+
+article .goods_type .layui-btn-container .layui-btn {
+    width: 200px !important;
+    height: 40px;
+    line-height: 35px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #86bebe;
+    border: 2px solid #86bebe;
+    background: transparent;
+}
+
+article .goods_type.layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #D35240;
+}
+
+
+
+article .goods_type {
+    background: url(../img/index-bg.png) no-repeat;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+.sign_in .goods_type .layui-container .layui-row .layui-btn-container .layui-btn {
+    width: 200px !important;
+    height: 40px;
+    line-height: 35px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #f7f1c7;
+    border: 2px solid #f7f1c7;
+    background: transparent;
+}
+
+article .goods_type .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .goods_type .layui-container {
+    margin-top: 30px;
+}
+
+article .goods_type .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .goods_type .layui-container .layui-row .layui-form {
+    padding-top: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.sign_in .goods_type .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 145px;
+}
+
+.sign_in .article_type.layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #D35240;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .goods_type .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .goods_type .layui-container .layui-row .layui-form .layui-upload {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+article .goods_type .layui-container .layui-row .layui-form .layui-form-item {
+    margin-bottom: 50px;
+    width: 600px;
+}
+
+.sign_in .goods_type .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+
+
+/* 通用 */
+.sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input {
+    max-width: 300px;
+}
+
+article .warp .layui-btn-container {
+    position: relative;
+    padding-left: 400px;
+    margin-top: 30px;
+}
+
+article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-form-label {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    width: 130px;
+    color: #1296db;
+}
+
+article .warp .layui-container .layui-row div span h1 {
+    text-align: center;
+    color: #769fcd;
+    line-height: 60px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+article .warp {
+    background: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: clip;
+}
+
+article .warp .layui-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+article .warp .layui-container {
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+article .warp .layui-container .layui-row {
+    width: 100%;
+    background: transparent;
+}
+
+article .warp .layui-container .layui-row .layui-form {
+    /* padding-top: 30px; */
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-left: 400px;
+}
+
+.sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+.sign_in .warp .layui-container .layui-row .layui-form .layui-form-item .layui-upload span {
+    font-size: 20px;
+    color: #769fcd;
+    font-weight: 700;
+    width: 132px !important;
+}
+
+.sign_in .warp .layui-container .layui-row .layui-form .layui-upload .layui-upload-list .layui-upload-img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #222;
+}
+
+.sign_in .warp .layui-container .layui-row .layui-form .layui-upload {
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    width: 400px;
+  /*  position: absolute; */
+    top: 0;
+    left: 0;
+}
+.sign_in .warp .layui-container .layui-row .layui-form>.layui-upload:nth-last-of-type(2) {
+    top: 350px !important;
+}
+article .warp.change_password .layui-container .layui-row .layui-form {
+    padding-left: 0;
+}
+article .warp.notice .layui-container .layui-row .layui-form {
+    padding-left: 0;
+}
+article .warp .layui-container .layui-row .layui-form .layui-form-item:nth-child(16) .layui-upload {
+    top: 350px;
+}
+article .warp .layui-container .layui-row .layui-form .layui-form-item {
+    /* text-align: center; */
+    /* margin-bottom: 50px; */
+    width: 600px;
+    border-bottom: 1px solid rgba(18, 150, 219, .2);
+    margin-bottom: 15px;
+    padding: 10px 0;
+}
+
+article .warp .layui-container .layui-row .layui-form .layui-form-item span {
+    justify-content: center;
+    line-height: 36px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0d0c0c;
+}
+
+.sign_in .warp .layui-container .layui-row .layui-form .layui-upload div .layui-progress {
+    left: 0px;
+}
+
+.section1 .table .layui-form .layui-table-page #layui-table-page1 {
+    text-align: center;
+}
+
+
+/* 主页里的“个人资料”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(1)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/gerengziliao.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+/* 主页里的“公共管理”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(2)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/gonggongguanli.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+/* 主页里的“用户管理”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(3)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/yonghuguanli.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+/* 主页里的“信息管理”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(4)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/xinxiguanli.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 209px;
+}
+
+/* 主页里的“定制商品”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(5)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/dingzhishangpin.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+/* 主页里的“我要定制”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(6)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/woyaodingzhi.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+/* 主页里的“分类信息”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(7)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/fenleixinxi.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+/* 主页里的“网站公告”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(8)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/wangzhangonggao.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+/* 主页里的“热卖图书”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(9)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/remaitushu.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+/* 主页里的“热卖图书”图标 */
+.layui-layout .layui-side .layui-side-scroll .layui-nav .layui-nav-item:nth-of-type(10)::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    background: url(../img/anquanchuko.png) no-repeat;
+    background-size: 100% 100%;
+    top: 12px;
+    right: 195px;
+}
+
+.layui-layout .layui-side {
+    background: #769fcd !important;
+}
+
+.layui-layout .layui-side::before {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: .33;
+    background: #000;
+}
+
+.box {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+/* 表单里的header栏 */
+.section1 .table .layui-form .layui-table-box .layui-table-header .layui-table thead tr {
+    background: #769fcd;
+}
+
+/* 表单里的单选框 */
+.section1 .table .layui-form .layui-table-box .layui-table-body .layui-table tbody tr .layui-table-col-special {
+    background: #769fcd;
+}
+
+.layui-table-view .layui-table th,
+.layui-table-view .layui-table td {
+    padding: 5px 9px !important;
+    width: 68px;
+    color: rgba(0, 0, 0, .6);
+    font-size: 16px;
+}
+
+.section1 {
+    background: #dee6fd;
+}
+
+.layui-table-tool {
+    background: #dee6fd;
+    border-top: 1px solid #fff;
+}
+
+/* 表单里的单数行 */
+.section1 .table .layui-form .layui-table-box .layui-table-body .layui-table tbody tr:nth-child(odd) {
+    background: #f3f8ff;
+    text-align: center;
+}
+
+/* 表单里的双数行 */
+.section1 .table .layui-form .layui-table-box .layui-table-body .layui-table tbody tr:nth-child(even) {
+    background: #deecff;
+    text-align: center;
+}
+
+.box #commodity_category {
+    margin-top: 5px;
+    border: 1px solid #f7f1c7;
+    box-shadow: 0 0 10px #86bebe;
+    background: #c0c4dd;
+}
+.login body article .warp .layui-container .layui-row .layui-form .layui-form-item:nth-child(1) .layui-form-label:before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    background: url('../img/icon_yh.png') no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+}
+.login body article .warp .layui-container .layui-row .layui-form .layui-form-item:nth-child(2) .layui-form-label:before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    background: url('../img/icon_mm.png') no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+}
+.layui-input-block input::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, .2);
+}
+/* .layui-btn-container .layui-btn:nth-child(1) {
+    width: 600px;
+    margin:  0 0 10px;
+}
+.layui-btn-container .layui-btn:nth-child(2) {
+    width: 600px;
+    margin:  0 0 10px;
+} */
+.layui-btn-container .layui-btn {
+    border-radius: 4px;
+    background: #769fcd;
+    display: block;
+}
+.layui-form+.layui-btn-container .layui-btn {
+    width: 600px;
+}
+.layui-btn-container .layui-btn:last-child {
+    margin-bottom: 0;
+}
+.login .layui-btn-container .layui-btn:nth-child(3) {
+    background: transparent;
+    color: rgba(0, 0, 0, .6);
+    margin: 0 10px;
+    padding: 0;
+}
+.login .layui-btn-container .layui-btn:nth-child(2) {
+    background: transparent;
+    color: rgba(0, 0, 0, .6);
+    margin: 0 10px;
+    padding: 0;
+    position: relative;
+}
+.login .layui-btn-container .layui-btn:nth-child(2):before {
+    content: "";
+    width: 1px;
+    height: 18px;
+    background: rgba(0, 0, 0, 1.0);
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.login body article .warp .layui-container .layui-row::after {
+    width: 50%;
+    height: 100%;
+    background: url('../img/kv_icon.png') no-repeat;
+    background-size: cover;
+    position: absolute;
+    top:  0;
+    left: 25%;
+    transform: translateX(-50%);
+    opacity: .8;
+}
+.login body article .warp .layui-container .layui-row div span h1 {
+       text-align: center;
+       /* padding: 20px 0; */
+       font-size: 28px;
+       font-weight: 700;
+       color: #14181c;
+       position: absolute;
+       top: 50%;
+       transform: translateY(-50%);
+       width: 50%;
+       z-index: 1;
+       background: #ffffff9c;
+}
+.register body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, .2);
+    font-size: 18px;
+}
+.register body article .warp .layui-btn-container .layui-btn:nth-child(1) {
+    width: 400px;
+    margin:  0 auto 10px;
+    display: block;
+    background: #769fcd;
+}
+.register body article .warp .layui-btn-container .layui-btn:nth-child(2) {
+    width: 400px;
+    margin:  0 auto 10px;
+    display: block;
+    background: #769fcd;
+}
+.register .warp .layui-btn-container {
+    display: block;
+}
+.register body article .warp .layui-btn-container .layui-btn:nth-child(2):before {
+    width: 0;
+}
+.forgot body article .warp .layui-container .layui-row .layui-form .layui-form-item .layui-input-block .layui-input::placeholder {
+    color: rgba(0, 0, 0, .2);
+    font-size: 18px;
+}
+.forgot .layui-input-block .layui-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #769fcd;
+}
+.forgot article .warp .layui-btn-container {
+    display: block;
+    padding-left: 0;
+}
+.forgot article .warp .layui-btn-container .layui-btn:nth-child(1) {
+    width: 400px;
+    margin:  0 auto 10px;
+    display: block;
+    background: #769fcd;
+}
+.forgot article .warp .layui-btn-container .layui-btn:nth-child(2) {
+    width: 400px;
+    margin:  0 auto 0;
+    display: block;
+    background: #769fcd;
+}
+.layui-nav-tree dd a {
+    display: inline-block !important;
+    margin:  0 auto;
+}
+.layui-nav-tree dd.layui-this a {
+    display: inline-block;
+    background: #1296db !important;
+    margin:  0 auto;
+    border-radius: 40px;
+    padding: 0 60px;
+}
+.layui-nav-tree .layui-nav-child dd {
+    text-align: center;
+}
+.layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover {
+    background: transparent;
+}
+.layui-nav-tree dd {
+    height: 40px;
+}
+.layui-side-scroll li.layui-this {
+    background: #1296db !important;
+}
+.layui-side-scroll li.layui-this:before {
+    filter: sepia(100%);
+}
+.userInfo .layui-form .layui-form-item:nth-child(1) {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 400px !important;
+    border-bottom: 0 !important;
+}
+.userInfo .layui-form {
+    padding-left: 400px;
+}
+.userInfo .layui-form .layui-form-item:nth-child(1) .layui-upload {
+    width: 100% !important;
+}
+.userInfo .layui-form .layui-form-item:nth-child(1) .layui-upload .layui-btn {
+    background: #769fcd;
+    border-radius: 40px;
+}
+.userInfo .layui-form {
+    display: block !important;
+}
+.userInfo .layui-container .layui-row .layui-form .layui-form-item {
+    padding: 10px 0;
+}
+article .userInfo .layui-btn-container {
+    padding-left: 0;
+    display: block;
+    padding-left: 400px;
+}
+article .userInfo .layui-btn-container .layui-btn {
+    width: 600px;
+    margin:  0 0 20px;
+    display: block;
+}
+
+.change_password .layui-form .layui-form-item:nth-child(1) .layui-upload {
+    width: 100% !important;
+}
+.change_password .layui-form .layui-form-item:nth-child(1) .layui-upload .layui-btn {
+    background: #769fcd;
+    border-radius: 40px;
+}
+.change_password .layui-form {
+    display: block !important;
+}
+.change_password .layui-container .layui-row .layui-form .layui-form-item {
+    padding: 10px 0;
+    margin:  0 auto 15px;
+}
+article .change_password .layui-btn-container {
+    padding-left: 0;
+    display: block;
+}
+article .change_password .layui-btn-container .layui-btn {
+    width: 600px;
+    margin:  0 auto 20px;
+    display: block;
+}
+.slides .layui-form-item {
+    padding: 10px 0;
+}
+.slides .layui-container .layui-row .layui-form .layui-form-item:nth-child(1) {
+    border-bottom: 0;
+    position: absolute;
+    top:  30px;
+    left: 0;
+    width: 400px !important;
+}
+.slides .layui-container .layui-row .layui-form .layui-form-item:nth-child(1) .layui-upload {
+    width: 400px;
+}
+.slides .layui-container .layui-row .layui-form {
+    display: block !important;
+    padding-left: 400px;
+}
+.slides .layui-btn-container {
+    display: block !important;
+    padding-left: 400px !important;
+}
+.slides .layui-btn-container .layui-btn {
+    width: 600px;
+    margin: 0 0 20px;
+    display: block;
+    border-radius: 4px;
+    background: #769fcd;
+}
+article .warp.notice .layui-container .layui-row .layui-form .layui-form-item {
+    border-bottom: 0;
+    padding: 10px 0;
+    margin: 0 auto;
+}
+article .warp.notice .layui-container .layui-row .layui-form {
+    display: block !important;  
+}
+article .warp.notice .layui-container .layui-row .layui-btn-container {
+    display: block !important;
+    padding-left: 0;
+}
+article .warp.notice .layui-container .layui-row .layui-btn-container .layui-btn {
+    width: 600px;
+    margin: 0 auto 20px;
+    display: block;
+    border-radius: 4px;
+    background: #769fcd;
+}
+article .warp.notice .layui-container .layui-row .layui-form .layui-form-item:nth-child(1) {
+    border-bottom: 1px solid rgba(18, 150, 219, .2);
+}
+article .user .layui-btn-container .layui-btn {
+    width: 600px;
+    margin: 0 0 20px;
+    display: block;
+    border-radius: 4px;
+    background: #769fcd;
+}
+article .user .layui-form-item:nth-child(1) {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 400px !important;
+    border-bottom: 0 !important;
+}
+article .user .layui-form-item .layui-upload {
+    width: 400px !important;
+}
+.user .layui-form {
+    display: block !important;
+    padding-left: 400px !important;
+}
+.user .layui-form > div {
+    padding: 10px 0;
+    width: 600px;
+}
+.user .layui-btn-container {
+    padding-left: 400px !important;
+    display: block !important;
+}
+.layui-btn {
+    background: #769fcd;
+    border-radius: 40px
+}
+.layui-icon-home:before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background: url('../img/home_icon.png') no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 50px;
+}
+.login .warp .layui-btn-container {
+    padding-left: 50%;
+}
+.login .warp .layui-btn-container .layui-btn {
+    width: 400px;
+    margin:  0 auto 15px;
+}
+.login .warp .layui-btn-container .layui-btn:nth-child(2),.login .warp .layui-btn-container .layui-btn:nth-child(3) {
+    display: inline-block;
+    width: auto;
+    margin: 0 10px;
+}
+.layui-table .layui-btn {
+    display: inline-block;
+    margin-bottom: 10px !important;
+}
+.register body .sign_in .warp .layui-container .layui-row .layui-form .layui-upload {
+    position: static !important;
+}
+.layui-panel{
+	display: none;
+}

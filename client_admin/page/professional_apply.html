@@ -1,0 +1,548 @@
+<!-- 专业信息申报页面 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>专业信息申报 - 留学生报名网站</title>
+    <script src="../js/index.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/diy.css">
+    <style>
+        .nav-container {
+            background-color: #34495e;
+            color: white;
+        }
+        .nav-bar {
+            margin: 0 auto;
+            width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .nav-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .nav-links a:hover {
+            color: #1abc9c;
+        }
+        .user-info {
+            display: flex;
+            gap: 10px;
+        }
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .page-title {
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .apply-form {
+            background-color: #f8f9fa;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 800px;
+            margin: 0 auto;
+        }
+        .form-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .form-label {
+            width: 150px;
+            font-weight: bold;
+            color: #34495e;
+            text-align: right;
+            padding-right: 20px;
+        }
+        .form-input {
+            flex: 1;
+        }
+        .form-input input,
+        .form-input select {
+            width: 100%;
+            height: 40px;
+            padding: 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .submit-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .btn-primary {
+            background-color: #1abc9c;
+            color: white;
+            padding: 12px 40px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #16a085;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-container">
+        <div class="nav-bar">
+            <div class="nav-title">留学生报名网站管理系统</div>
+            <div class="nav-links">
+                <a href="./user_home.html">Home</a>
+                <a href="./notice/table.html">公告信息</a>
+                <a href="#">留学资讯</a>
+                <a href="./student_account.html">个人账户</a>
+                <a href="./info.html">个人资料</a>
+                <a href="./application_guide/table.html">申请指南</a>
+                <a href="#">关于我们</a>
+                <a href="./professional_info_client.html">专业信息</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeText">欢迎您</span>
+                <a href="#" id="logoutBtn">退出</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="container">
+        <h1 class="page-title">专业信息申报</h1>
+        
+        <div class="apply-form">
+            <form id="applyForm">
+                <div class="form-item">
+                    <div class="form-label">专业名称：</div>
+                    <div class="form-input">
+                        <select id="majorName" required>
+                            <option value="">请选择专业</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-item">
+                    <div class="form-label">学费信息：</div>
+                    <div class="form-input">
+                        <input type="text" id="tuitionInfo" placeholder="学费将根据所选专业自动填充" readonly required>
+                    </div>
+                </div>
+                
+                <div class="form-item">
+                    <div class="form-label">申报人员：</div>
+                    <div class="form-input">
+                        <select id="applyPerson" required>
+                            <option value="">请选择申报人员</option>
+                            <option value="学生本人">学生本人</option>
+                            <option value="家长">家长</option>
+                            <option value="代理">代理</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-item">
+                    <div class="form-label">学生姓名：</div>
+                    <div class="form-input">
+                        <input type="text" id="studentName" placeholder="请输入学生姓名" required>
+                    </div>
+                </div>
+                
+                <div class="submit-section">
+                    <button type="submit" class="btn-primary">提交申报</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/base.js"></script>
+    <script type="text/javascript">
+        var BaseUrl = baseUrl()
+        let personInfo;
+        try {
+            personInfo = JSON.parse(sessionStorage.personInfo)
+            // 显示欢迎信息
+            if (personInfo) {
+                document.getElementById('welcomeText').textContent = `欢迎您，${personInfo.nickname || personInfo.username}`;
+            }
+        } catch (error) {
+            console.error('解析用户信息出错:', error)
+            // 如果解析失败，跳转到登录页面
+            window.location.href = '../index.html';
+        }
+
+        // 退出登录
+        document.getElementById('logoutBtn').onclick = async function() {
+            try {
+                await axios.get(BaseUrl + '/api/user/quit', {
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            } catch (error) {
+                console.error('退出登录失败:', error);
+                // 即使API请求失败，也清除本地数据并重定向
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            }
+        };
+
+        // 获取URL参数
+        function getUrlParam(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+        
+        // 加载所有专业数据到下拉选择框
+        async function loadAllProfessionalData() {
+            try {
+                const response = await axios.get(BaseUrl + '/api/professional_information/get_list', {
+                    params: {
+                        page: 1,
+                        size: 100 // 获取足够多的专业数据
+                    },
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+                
+                if (response.data.result && response.data.result.list) {
+                    populateMajorSelect(response.data.result.list);
+                } else {
+                    console.error('获取专业列表失败: 响应格式不正确');
+                    // 使用模拟数据
+                    loadMockProfessionalData();
+                }
+            } catch (error) {
+                console.error('获取专业列表出错:', error);
+                // 使用模拟数据
+                loadMockProfessionalData();
+            }
+        }
+        
+        // 加载模拟专业数据
+        function loadMockProfessionalData() {
+            const mockData = [
+                {
+                    professional_information_id: 1,
+                    name_of_institution: '北京理工大学',
+                    major_name: '计算机科学与技术',
+                    tuition_information: '30000元/年'
+                },
+                {
+                    professional_information_id: 2,
+                    name_of_institution: '北京理工大学',
+                    major_name: '电子信息工程',
+                    tuition_information: '28000元/年'
+                },
+                {
+                    professional_information_id: 3,
+                    name_of_institution: '北京理工大学',
+                    major_name: '机械工程',
+                    tuition_information: '26000元/年'
+                },
+                {
+                    professional_information_id: 4,
+                    name_of_institution: '北京理工大学',
+                    major_name: '国际经济与贸易',
+                    tuition_information: '24000元/年'
+                },
+                {
+                    professional_information_id: 5,
+                    name_of_institution: '北京理工大学',
+                    major_name: '汉语国际教育',
+                    tuition_information: '22000元/年'
+                },
+                {
+                    professional_information_id: 6,
+                    name_of_institution: '北京理工大学',
+                    major_name: '材料科学与工程',
+                    tuition_information: '27000元/年'
+                },
+                {
+                    professional_information_id: 7,
+                    name_of_institution: '北京理工大学',
+                    major_name: '自动化',
+                    tuition_information: '29000元/年'
+                },
+                {
+                    professional_information_id: 8,
+                    name_of_institution: '北京理工大学',
+                    major_name: '软件工程',
+                    tuition_information: '32000元/年'
+                }
+            ];
+            
+            populateMajorSelect(mockData);
+        }
+        
+        // 填充专业下拉选择框
+        function populateMajorSelect(professionals) {
+            const majorSelect = document.getElementById('majorName');
+            
+            // 清空现有选项（保留第一个"请选择专业"选项）
+            while (majorSelect.options.length > 1) {
+                majorSelect.remove(1);
+            }
+            
+            // 添加专业选项
+            professionals.forEach(professional => {
+                const option = document.createElement('option');
+                option.value = professional.major_name;
+                option.textContent = professional.major_name;
+                // 存储学费信息在option的data属性中
+                option.dataset.tuition = professional.tuition_information || '';
+                option.dataset.institution = professional.name_of_institution || '';
+                majorSelect.appendChild(option);
+            });
+            
+            // 添加change事件监听器，实现学费自动填充
+            majorSelect.onchange = function() {
+                const selectedOption = this.options[this.selectedIndex];
+                document.getElementById('tuitionInfo').value = selectedOption.dataset.tuition;
+            };
+        }
+        
+        // 加载专业信息（如果有ID参数）
+        async function loadProfessionalInfo() {
+            const professionalId = getUrlParam('id');
+            if (professionalId) {
+                try {
+                    const response = await axios.get(BaseUrl + '/api/professional_information/get_obj', {
+                        params: {
+                            professional_information_id: professionalId
+                        },
+                        headers: {
+                            "x-auth-token": sessionStorage.token
+                        }
+                    });
+                    
+                    if (response.data.result && response.data.result.obj) {
+                        const professional = response.data.result.obj;
+                        // 自动填充表单
+                        const majorSelect = document.getElementById('majorName');
+                        // 查找匹配的专业选项
+                        for (let i = 0; i < majorSelect.options.length; i++) {
+                            if (majorSelect.options[i].value === professional.major_name) {
+                                majorSelect.selectedIndex = i;
+                                break;
+                            }
+                        }
+                        // 设置学费信息
+                        document.getElementById('tuitionInfo').value = professional.tuition_information || '';
+                    }
+                } catch (error) {
+                    console.error('加载专业信息出错:', error);
+                    // 尝试从模拟数据中查找
+                    const mockData = [
+                        {
+                            professional_information_id: 1,
+                            name_of_institution: '北京理工大学',
+                            major_name: '计算机科学与技术',
+                            tuition_information: '30000元/年'
+                        },
+                        {
+                            professional_information_id: 2,
+                            name_of_institution: '北京理工大学',
+                            major_name: '电子信息工程',
+                            tuition_information: '28000元/年'
+                        },
+                        {
+                            professional_information_id: 3,
+                            name_of_institution: '北京理工大学',
+                            major_name: '机械工程',
+                            tuition_information: '26000元/年'
+                        },
+                        {
+                            professional_information_id: 4,
+                            name_of_institution: '北京理工大学',
+                            major_name: '国际经济与贸易',
+                            tuition_information: '24000元/年'
+                        },
+                        {
+                            professional_information_id: 5,
+                            name_of_institution: '北京理工大学',
+                            major_name: '汉语国际教育',
+                            tuition_information: '22000元/年'
+                        },
+                        {
+                            professional_information_id: 6,
+                            name_of_institution: '北京理工大学',
+                            major_name: '材料科学与工程',
+                            tuition_information: '27000元/年'
+                        },
+                        {
+                            professional_information_id: 7,
+                            name_of_institution: '北京理工大学',
+                            major_name: '自动化',
+                            tuition_information: '29000元/年'
+                        },
+                        {
+                            professional_information_id: 8,
+                            name_of_institution: '北京理工大学',
+                            major_name: '软件工程',
+                            tuition_information: '32000元/年'
+                        }
+                    ];
+                    
+                    const professional = mockData.find(item => item.professional_information_id == professionalId);
+                    if (professional) {
+                        const majorSelect = document.getElementById('majorName');
+                        // 查找匹配的专业选项
+                        for (let i = 0; i < majorSelect.options.length; i++) {
+                            if (majorSelect.options[i].value === professional.major_name) {
+                                majorSelect.selectedIndex = i;
+                                break;
+                            }
+                        }
+                        // 设置学费信息
+                        document.getElementById('tuitionInfo').value = professional.tuition_information || '';
+                    }
+                }
+            }
+        }
+        
+        // 表单验证
+        function validateForm() {
+            const majorSelect = document.getElementById('majorName');
+            const majorName = majorSelect.value.trim();
+            const tuitionInfo = document.getElementById('tuitionInfo').value.trim();
+            const applyPerson = document.getElementById('applyPerson').value;
+            const studentName = document.getElementById('studentName').value.trim();
+            
+            if (!majorName) {
+                alert('请选择专业名称');
+                return false;
+            }
+            
+            if (!tuitionInfo) {
+                alert('请选择专业以获取学费信息');
+                return false;
+            }
+            
+            if (!applyPerson) {
+                alert('请选择申报人员');
+                return false;
+            }
+            
+            if (!studentName) {
+                alert('请输入学生姓名');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // 表单提交处理
+        document.getElementById('applyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // 表单验证
+            if (!validateForm()) {
+                return;
+            }
+            
+            // 获取表单数据
+            const majorSelect = document.getElementById('majorName');
+            const selectedOption = majorSelect.options[majorSelect.selectedIndex];
+            
+            // 转换申报人员为整数类型
+            const applyPersonStr = document.getElementById('applyPerson').value;
+            let declarationPersonnel = 0;
+            switch(applyPersonStr) {
+                case '学生本人':
+                    declarationPersonnel = 1;
+                    break;
+                case '家长':
+                    declarationPersonnel = 2;
+                    break;
+                case '代理':
+                    declarationPersonnel = 3;
+                    break;
+                default:
+                    declarationPersonnel = 1; // 默认学生本人
+            }
+            
+            const formData = {
+                name_of_institution: selectedOption.dataset.institution || '北京理工大学', // 从选项中获取院校名称或默认北京理工大学
+                major_name: majorSelect.value.trim(),
+                tuition_information: document.getElementById('tuitionInfo').value.trim(),
+                declaration_personnel: declarationPersonnel,
+                student_name: document.getElementById('studentName').value.trim(),
+                student_id: personInfo.user_id // 添加当前登录用户的ID
+            };
+            
+            try {
+                // 添加加载状态
+                const submitBtn = this.querySelector('.btn-primary');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '提交中...';
+                submitBtn.disabled = true;
+                
+                // 发送申报请求到后端
+                const response = await axios.post(BaseUrl + '/api/application_for_studying_abroad/add', formData, {
+                    headers: {
+                        "x-auth-token": sessionStorage.token,
+                        "Content-Type": "application/json"
+                    }
+                });
+                
+                if (response.data.error) {
+                    // 后端返回了错误信息
+                    alert('申报提交失败：' + (response.data.error.message || '未知错误'));
+                } else {
+                    // 申报成功
+                    alert('专业信息申报提交成功！');
+                    // 跳转到个人账户页面
+                    window.location.href = './student_account.html';
+                }
+            } catch (error) {
+                console.error('申报提交出错:', error);
+                alert('申报提交失败，请稍后重试');
+            } finally {
+                // 恢复按钮状态
+                const submitBtn = this.querySelector('.btn-primary');
+                submitBtn.textContent = '提交申报';
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // 页面加载时先加载所有专业数据，再加载特定专业信息
+        window.onload = async function() {
+            await loadAllProfessionalData();
+            loadProfessionalInfo();
+        };
+
+        // 初始化layui组件
+        layui.use(['element', 'layer'], function() {
+            var element = layui.element;
+            var layer = layui.layer;
+        });
+    </script>
+</body>
+
+</html>

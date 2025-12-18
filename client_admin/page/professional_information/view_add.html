@@ -1,0 +1,785 @@
+<!-- 新增/Add -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/diy.css">
+    <script src="../../js/axios.min.js"></script>
+
+    <style>
+        img {
+            width: 200px;
+        }
+
+
+        
+    </style>
+</head>
+
+<body>
+<article class="sign_in">
+    <div class="warp">
+        <div class="layui-container">
+            <div class="layui-row">
+                <form class="layui-form" action="">
+                                                                                                                                                                                                            <div class="layui-form-item" id="name_of_institution_box">
+                                            <label class="layui-form-label">院校名称</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                                       placeholder="请输入院校名称"
+                                                       class="layui-input" id="name_of_institution">
+                                            </div>
+                                        </div>
+                                                                                                                                                                                                                                                                <div class="layui-form-item" id="major_name_box">
+                                            <label class="layui-form-label">专业名称</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                                       placeholder="请输入专业名称"
+                                                       class="layui-input" id="major_name">
+                                            </div>
+                                        </div>
+                                                                                                                                                                                                                        <div class="layui-upload" id="cover_photo_box">
+                                        <button type="button" class="layui-btn" id="cover_photo">上传图片</button>
+                                        <div class="layui-upload-list">
+                                            <img class="layui-upload-img" id="cover_photo_img">
+                                            <p id="demoText"></p>
+                                        </div>
+                                        <div style="width: 95px;">
+                                            <div class="layui-progress layui-progress-big" lay-showpercent="yes"
+                                                 lay-filter="cover_photo">
+                                                <div class="layui-progress-bar" lay-percent=""></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                                                                                                                                                                            <div class="layui-form-item" id="tuition_information_box">
+                                            <label class="layui-form-label">学费信息</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                                       placeholder="请输入学费信息"
+                                                       class="layui-input" id="tuition_information">
+                                            </div>
+                                        </div>
+                                                                                                                                                                                                                        <div class="layui-form-item layui-form-text" id="application_requirements_box">
+                                        <label class="layui-form-label">申请要求</label>
+                                        <div class="layui-input-block">
+                                            <textarea placeholder="请输入申请要求" class="layui-textarea"
+                                                      id="application_requirements"></textarea>
+                                        </div>
+                                    </div>
+                                                                                                                                                                                    <div class="layui-form-item layui-form-text" id="degree_introduction_box">
+                                        <label class="layui-form-label">学位介绍</label>
+                                        <div class="layui-input-block">
+                                            <textarea placeholder="请输入学位介绍" class="layui-textarea"
+                                                      id="degree_introduction"></textarea>
+                                        </div>
+                                    </div>
+                                                                                                                                                                                    <div class="layui-form-item layui-form-text" id="employment_situation_box">
+                                        <label class="layui-form-label">就业情况</label>
+                                        <div class="layui-input-block">
+                                            <textarea placeholder="请输入就业情况" class="layui-textarea"
+                                                      id="employment_situation"></textarea>
+                                        </div>
+                                    </div>
+                                                                                                                                                <div class="layui-form-item">
+                                    <label class="layui-form-label">专业介绍</label>
+                                    <div class="layui-input-block">
+                                        <textarea id="demo" style="display: none;"></textarea>
+                                    </div>
+                                </div>
+                                                                            
+                                                
+                        
+                        
+                        
+                        
+                                                            </form>
+                <div class="layui-btn-container">
+                    <a href="#" type="button" class="layui-btn layui-btn-normal login" id="submit" >确认/Confirm</a>
+                    <a href="./table.html" target="main_self_frame" type="button"
+                       class="layui-btn layui-btn-normal login">取消/Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+</body>
+<script src="../../layui/layui.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/index.js"></script>
+<script>
+    var BaseUrl = baseUrl()
+    let professional_information_id = location.search.substring(1)
+    layui.use(['upload', 'element', 'layer', 'laydate', 'layedit'], function () {
+        var $ = layui.jquery
+                , upload = layui.upload
+                , element = layui.element
+                , layer = layui.layer
+                , laydate = layui.laydate
+                , layedit = layui.layedit
+                , form = layui.form;
+
+        let url
+
+        let token = sessionStorage.token || null
+        let personInfo = JSON.parse(sessionStorage.personInfo)
+        let user_group = personInfo.user_group
+        let use_id = personInfo.user_id
+
+
+        function  $get_stamp() {
+            return new Date().getTime();
+        }
+
+        function  $get_rand(len) {
+            var rand = Math.random();
+            return Math.ceil(rand * 10 ** len);
+        }
+
+        
+            // 权限判断
+            /**
+             * 获取路径对应操作权限 鉴权
+             * @param {String} action 操作名
+             */
+            function $check_action(path1, action = "get") {
+                var o = $get_power(path1);
+                if (o && o[action] != 0 && o[action] != false) {
+                    return true;
+                }
+                return false;
+            }
+
+            /**
+             * 是否有显示或操作字段的权限
+             * @param {String} action 操作名
+             * @param {String} field 查询的字段
+             */
+            function $check_field(action, field, path1) {
+                var o = $get_power(path1);
+                var auth;
+                if (o && o[action] != 0 && o[action] != false) {
+                    auth = o["field_" + action];
+                }
+                if (auth) {
+                    return auth.indexOf(field) !== -1;
+                }
+                return false;
+            }
+
+            /**
+             * 获取权限
+             * @param {String} path 路由路径
+             */
+            function $get_power(path) {
+                var list_data = JSON.parse(sessionStorage.list_data)
+                var list = list_data;
+                var obj;
+                for (var i = 0; i < list.length; i++) {
+                    var o = list[i];
+                    if (o.path === path) {
+                        obj = o;
+                        break;
+                    }
+                }
+                return obj;
+            }
+
+        let submit = document.querySelector('#submit')
+        // 提交按钮校验权限
+        // if (   user_group == "管理员" ||$check_action('/professional_information/view', 'add') || $check_action('/professional_information/view', 'set')) {
+        //    submit.style.display = "block"
+        // }
+        // style="display: none"
+
+        
+            let field = "professional_information_id";
+            let url_add = "professional_information";
+            let url_set = "professional_information";
+            let url_get_obj = "professional_information";
+            let url_upload = "professional_information"
+            let query = {
+                "professional_information_id": 0,
+            }
+
+            let form_data2 = {
+                                                        "name_of_institution":  '', // 院校名称
+                                                                            "major_name":  '', // 专业名称
+                                                                            "cover_photo":  '', // 封面图片
+                                                                            "tuition_information":  '', // 学费信息
+                                                                            "application_requirements":  '', // 申请要求
+                                                                            "degree_introduction":  '', // 学位介绍
+                                                                            "employment_situation":  '', // 就业情况
+                                                                            "professional_introduction":  '', // 专业介绍
+                                                                                                                    "professional_information_id": 0, // ID
+                                                                                            }
+
+            layui.layedit.set({
+      uploadImage: {
+        url: BaseUrl + '/api/professional_information/upload?' //接口url
+        , type: 'post' //默认post
+      }
+    });
+
+
+            var path1
+
+            function getpath() {
+                var list_data = JSON.parse(sessionStorage.list_data)
+                for (var i = 0; i < list_data.length; i++) {
+                    var o = list_data[i];
+                    if (o.path === "/professional_information/table") {
+                        path1 = o.path
+                            $get_power(o.path)
+                    }
+                }
+            }
+
+            getpath()
+
+            /**
+             * 注册时是否有显示或操作字段的权限
+             * @param {String} action 操作名
+             * @param {String} field 查询的字段
+             * @param {String} path 路径
+             */
+            function $check_register_field(action, field, path1) {
+                var o = $get_power(path1);
+                var auth;
+                if (o && o[action] != 0 && o[action] != false) {
+                    auth = o["field_" + action];
+                }
+                if (auth) {
+                    return auth.indexOf(field) !== -1;
+                }
+                return false;
+            }
+
+            /**
+             * 是否有显示或操作字段的权限
+             * @param {String} action 操作名
+             * @param {String} field 查询的字段
+             */
+            function $check_field(action, field) {
+                var o = $get_power("/professional_information/view");
+                var auth;
+                if (o && o[action] != 0 && o[action] != false) {
+                    auth = o["field_" + action];
+                }
+                if (auth) {
+                    return auth.indexOf(field) !== -1;
+                }
+                return false;
+            }
+
+            /**
+             * 获取路径对应操作权限 鉴权
+             * @param {String} action 操作名
+             */
+            function $check_exam(path1, action = "get") {
+                var o = $get_power(path1);
+                if (o) {
+                    var option = JSON.parse(o.option);
+                    if (option[action])
+                        return true
+                }
+                return false;
+            }
+
+            /**
+             * 是否有审核字段的权限
+             */
+            function $check_examine() {
+                var url = window.location.href;
+                var url_ = url.split("/")
+                var pg_url = url_[url_.length - 2]
+                let path = "/"+ pg_url + "/table"
+                var o = $get_power(path);
+                if (o){
+                    var option = JSON.parse(o.option);
+                    if (option.examine)
+                        return true
+                }
+                return false;
+            }
+
+                            if (user_group === '管理员') {
+                    $("#name_of_institution_box").show()
+                } else {
+                    if ($check_field('add', 'name_of_institution')){
+                        $("#name_of_institution_box").show()
+                    }else {
+                        $("#name_of_institution_box").hide()
+                    }
+                }
+                            if (user_group === '管理员') {
+                    $("#major_name_box").show()
+                } else {
+                    if ($check_field('add', 'major_name')){
+                        $("#major_name_box").show()
+                    }else {
+                        $("#major_name_box").hide()
+                    }
+                }
+                            if (user_group === '管理员') {
+                    $("#cover_photo_box").show()
+                } else {
+                    if ($check_field('add', 'cover_photo')){
+                        $("#cover_photo_box").show()
+                    }else {
+                        $("#cover_photo_box").hide()
+                    }
+                }
+                            if (user_group === '管理员') {
+                    $("#tuition_information_box").show()
+                } else {
+                    if ($check_field('add', 'tuition_information')){
+                        $("#tuition_information_box").show()
+                    }else {
+                        $("#tuition_information_box").hide()
+                    }
+                }
+                            if (user_group === '管理员') {
+                    $("#application_requirements_box").show()
+                } else {
+                    if ($check_field('add', 'application_requirements')){
+                        $("#application_requirements_box").show()
+                    }else {
+                        $("#application_requirements_box").hide()
+                    }
+                }
+                            if (user_group === '管理员') {
+                    $("#degree_introduction_box").show()
+                } else {
+                    if ($check_field('add', 'degree_introduction')){
+                        $("#degree_introduction_box").show()
+                    }else {
+                        $("#degree_introduction_box").hide()
+                    }
+                }
+                            if (user_group === '管理员') {
+                    $("#employment_situation_box").show()
+                } else {
+                    if ($check_field('add', 'employment_situation')){
+                        $("#employment_situation_box").show()
+                    }else {
+                        $("#employment_situation_box").hide()
+                    }
+                }
+                            if (user_group === '管理员') {
+                    $("#professional_introduction_box").show()
+                } else {
+                    if ($check_field('add', 'professional_introduction')){
+                        $("#professional_introduction_box").show()
+                    }else {
+                        $("#professional_introduction_box").hide()
+                    }
+                }
+            
+                                                                                                                                                                                                        //常规使用 - 普通图片上传
+                        var uploadInst = upload.render({
+                            elem: '#cover_photo'
+                            , url: BaseUrl + '/api/professional_information/upload?' //此处用的是第三方的 http 请求演示，实际使用时改成您自己的上传接口即可。
+                            , headers: {
+                                'x-auth-token': token
+                            }, before: function (obj) {
+                                //预读本地文件示例，不支持ie8
+                                obj.preview(function (index, file, result) {
+                                    $('#cover_photo_img').attr('src', fullUrl(BaseUrl,result)); //图片链接（base64）
+                                });
+
+                                element.progress('cover_photo', '0%'); //进度条复位
+                                layer.msg('上传中', {icon: 16, time: 0});
+                            }
+                            , done: function (res) {
+                                //如果上传失败
+                                if (res.code > 0) {
+                                    return layer.msg('上传失败');
+                                }
+                                //上传成功的一些操作
+                                //……
+                                form_data2.cover_photo = res.result.url
+                                $('#demoText').html(''); //置空上传失败的状态
+                            }
+                            , error: function () {
+                                //演示失败状态，并实现重传
+                                var demoText = $('#demoText');
+                                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                                demoText.find('.demo-reload').on('click', function () {
+                                    uploadInst.upload();
+                                });
+                            }
+                            //进度条
+                            , progress: function (n, elem, e) {
+                                element.progress('cover_photo', n + '%'); //可配合 layui 进度条元素使用
+                                if (n == 100) {
+                                    layer.msg('上传完毕', {icon: 1});
+                                }
+                            }
+                        });
+                                                                                                                                                                                                                                                                                                                                                    var demo = layedit.build('demo', {
+                        tool: [
+                            'strong' //加粗
+                            , 'italic' //斜体
+                            , 'underline' //下划线
+                            , 'del' //删除/Del线
+                            , '|' //分割线
+                            , 'left' //左对齐
+                            , 'center' //居中对齐
+                            , 'right' //右对齐
+                            , 'link' //超链接
+                            , 'unlink' //清除链接
+                            , 'image' //插入图片
+                            , 'help' //帮助
+                        ]
+                    });
+                                        
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+            
+                                                                                                                                                                                                                                                                                    
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                            
+            
+                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                    
+                                                //文本
+                    let name_of_institution = document.querySelector("#name_of_institution")
+                        name_of_institution.onkeyup = function (event) {
+                        form_data2.name_of_institution = event.target.value
+                    }
+                    //文本
+                                                                                                                                //文本
+                    let major_name = document.querySelector("#major_name")
+                        major_name.onkeyup = function (event) {
+                        form_data2.major_name = event.target.value
+                    }
+                    //文本
+                                                                                                                                                                                                                            //文本
+                    let tuition_information = document.querySelector("#tuition_information")
+                        tuition_information.onkeyup = function (event) {
+                        form_data2.tuition_information = event.target.value
+                    }
+                    //文本
+                                                                                                                                                                                //多文本
+                    let application_requirements = document.querySelector("#application_requirements")
+                    //多文本
+                                                                                                                                //多文本
+                    let degree_introduction = document.querySelector("#degree_introduction")
+                    //多文本
+                                                                                                                                //多文本
+                    let employment_situation = document.querySelector("#employment_situation")
+                    //多文本
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                var data = sessionStorage.data || ''
+            if (data !== '') {
+                var data2 = JSON.parse(data)
+                Object.keys(form_data2).forEach(key => {
+                    Object.keys(data2).forEach(dbKey => {
+                        if (key === dbKey) {
+                            if (key!=='examine_state' && key!=='examine_reply'){
+                                $('#' + key).val(data2[key])
+                                form_data2[key] = data2[key]
+                                $('#' + key).attr('disabled', 'disabled')
+                                                                    
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                        }
+                        }
+                    })
+                })
+                sessionStorage.removeItem("data");
+            }
+                                                                                                                                                                                                                                                        
+
+            if (professional_information_id !== '') {
+                async function axios_get_3() {
+                    const {data: rese} = await axios.get(BaseUrl + '/api/professional_information/get_obj', {
+                        params: {
+                                professional_information_id: professional_information_id
+                        }, headers: {
+                            'x-auth-token': token
+                        }
+                    })
+
+                    let data = rese.result.obj
+                    Object.keys(form_data2).forEach((key) => {
+                        form_data2[key] = data[key];
+                        $("#"+key).val(form_data2[key])
+                    });
+
+                    
+
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                                                   if (user_group === '管理员') {
+                            $("#name_of_institution_box").show()
+                        } else {
+                            if ($check_field('set', 'name_of_institution') || $check_field('get', 'name_of_institution')){
+                                $("#name_of_institution_box").show()
+                            }else {
+                                $("#name_of_institution_box").hide()
+                            }
+                        }
+                                            if (user_group === '管理员') {
+                            $("#major_name_box").show()
+                        } else {
+                            if ($check_field('set', 'major_name') || $check_field('get', 'major_name')){
+                                $("#major_name_box").show()
+                            }else {
+                                $("#major_name_box").hide()
+                            }
+                        }
+                                            if (user_group === '管理员') {
+                            $("#cover_photo_box").show()
+                        } else {
+                            if ($check_field('set', 'cover_photo') || $check_field('get', 'cover_photo')){
+                                $("#cover_photo_box").show()
+                            }else {
+                                $("#cover_photo_box").hide()
+                            }
+                        }
+                                            if (user_group === '管理员') {
+                            $("#tuition_information_box").show()
+                        } else {
+                            if ($check_field('set', 'tuition_information') || $check_field('get', 'tuition_information')){
+                                $("#tuition_information_box").show()
+                            }else {
+                                $("#tuition_information_box").hide()
+                            }
+                        }
+                                            if (user_group === '管理员') {
+                            $("#application_requirements_box").show()
+                        } else {
+                            if ($check_field('set', 'application_requirements') || $check_field('get', 'application_requirements')){
+                                $("#application_requirements_box").show()
+                            }else {
+                                $("#application_requirements_box").hide()
+                            }
+                        }
+                                            if (user_group === '管理员') {
+                            $("#degree_introduction_box").show()
+                        } else {
+                            if ($check_field('set', 'degree_introduction') || $check_field('get', 'degree_introduction')){
+                                $("#degree_introduction_box").show()
+                            }else {
+                                $("#degree_introduction_box").hide()
+                            }
+                        }
+                                            if (user_group === '管理员') {
+                            $("#employment_situation_box").show()
+                        } else {
+                            if ($check_field('set', 'employment_situation') || $check_field('get', 'employment_situation')){
+                                $("#employment_situation_box").show()
+                            }else {
+                                $("#employment_situation_box").hide()
+                            }
+                        }
+                                            if (user_group === '管理员') {
+                            $("#professional_introduction_box").show()
+                        } else {
+                            if ($check_field('set', 'professional_introduction') || $check_field('get', 'professional_introduction')){
+                                $("#professional_introduction_box").show()
+                            }else {
+                                $("#professional_introduction_box").hide()
+                            }
+                        }
+                    
+                    // Array.prototype.slice.call(document.getElementsByTagName('input')).map(i => i.disabled = true)
+                    // Array.prototype.slice.call(document.getElementsByTagName('select')).map(i => i.disabled = true)
+                    // Array.prototype.slice.call(document.getElementsByTagName('textarea')).map(i => i.disabled = true)
+                                                                        //文本
+                                name_of_institution.value = form_data2.name_of_institution
+                            //文本
+                                                                        
+                                                    if (user_group === '管理员' || (form_data2['professional_information_id'] && $check_field('set', 'name_of_institution')) || (!form_data2['professional_information_id'] && $check_field('add', 'name_of_institution'))) {
+                            }else {
+                                $("#name_of_institution").attr("disabled", true);
+                                $("#name_of_institution > input[name='file']").attr('disabled', true);
+                            }
+                                                                                                //文本
+                                major_name.value = form_data2.major_name
+                            //文本
+                                                                        
+                                                    if (user_group === '管理员' || (form_data2['professional_information_id'] && $check_field('set', 'major_name')) || (!form_data2['professional_information_id'] && $check_field('add', 'major_name'))) {
+                            }else {
+                                $("#major_name").attr("disabled", true);
+                                $("#major_name > input[name='file']").attr('disabled', true);
+                            }
+                                                                                                                    
+                                                    if (user_group === '管理员' || (form_data2['professional_information_id'] && $check_field('set', 'cover_photo')) || (!form_data2['professional_information_id'] && $check_field('add', 'cover_photo'))) {
+                            }else {
+                                $("#cover_photo").attr("disabled", true);
+                                $("#cover_photo > input[name='file']").attr('disabled', true);
+                            }
+                                                                                                //文本
+                                tuition_information.value = form_data2.tuition_information
+                            //文本
+                                                                        
+                                                    if (user_group === '管理员' || (form_data2['professional_information_id'] && $check_field('set', 'tuition_information')) || (!form_data2['professional_information_id'] && $check_field('add', 'tuition_information'))) {
+                            }else {
+                                $("#tuition_information").attr("disabled", true);
+                                $("#tuition_information > input[name='file']").attr('disabled', true);
+                            }
+                                                                                                                                                //多文本
+                                application_requirements.value = form_data2.application_requirements
+                            //多文本
+                        
+                                                    if (user_group === '管理员' || (form_data2['professional_information_id'] && $check_field('set', 'application_requirements')) || (!form_data2['professional_information_id'] && $check_field('add', 'application_requirements'))) {
+                            }else {
+                                $("#application_requirements").attr("disabled", true);
+                                $("#application_requirements > input[name='file']").attr('disabled', true);
+                            }
+                                                                                                                                                //多文本
+                                degree_introduction.value = form_data2.degree_introduction
+                            //多文本
+                        
+                                                    if (user_group === '管理员' || (form_data2['professional_information_id'] && $check_field('set', 'degree_introduction')) || (!form_data2['professional_information_id'] && $check_field('add', 'degree_introduction'))) {
+                            }else {
+                                $("#degree_introduction").attr("disabled", true);
+                                $("#degree_introduction > input[name='file']").attr('disabled', true);
+                            }
+                                                                                                                                                //多文本
+                                employment_situation.value = form_data2.employment_situation
+                            //多文本
+                        
+                                                    if (user_group === '管理员' || (form_data2['professional_information_id'] && $check_field('set', 'employment_situation')) || (!form_data2['professional_information_id'] && $check_field('add', 'employment_situation'))) {
+                            }else {
+                                $("#employment_situation").attr("disabled", true);
+                                $("#employment_situation > input[name='file']").attr('disabled', true);
+                            }
+                                                                                                                    
+                                                    if (user_group === '管理员' || (form_data2['professional_information_id'] && $check_field('set', 'professional_introduction')) || (!form_data2['professional_information_id'] && $check_field('add', 'professional_introduction'))) {
+                            }else {
+                                $("#professional_introduction").attr("disabled", true);
+                                $("#professional_introduction > input[name='file']").attr('disabled', true);
+                            }
+                                                                                                                                                                                                                                                                                                                                                                                                                let cover_photo_img = document.querySelector("#cover_photo_img")
+                                    cover_photo_img.src = fullUrl(BaseUrl,form_data2.cover_photo)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            layedit.setContent(demo, form_data2.professional_introduction)
+                                                                layui.form.render("select");
+
+                }
+                axios_get_3()
+            }
+
+
+            
+            
+            submit.onclick = async function () {
+                try {
+                                                                                                                                                    //文本
+                            form_data2.name_of_institution = name_of_institution.value
+                            //文本
+                                                                                                                                                                        //文本
+                            form_data2.major_name = major_name.value
+                            //文本
+                                                                                                                                                                                                                                                                                                                            //文本
+                            form_data2.tuition_information = tuition_information.value
+                            //文本
+                                                                                                                                                                        //多文本
+                            form_data2.application_requirements = application_requirements.value
+                            //多文本
+                                                                                                                                                                                //多文本
+                            form_data2.degree_introduction = degree_introduction.value
+                            //多文本
+                                                                                                                                                                                //多文本
+                            form_data2.employment_situation = employment_situation.value
+                            //多文本
+                                                                                                    form_data2.professional_introduction = layedit.getContent(demo)
+                                                                                    } catch (err) {
+                    console.log(err)
+                }
+                                                                
+                                                
+                let customize_field = []
+                                                            customize_field.push({"field_name": "院校名称", "field_value": form_data2.name_of_institution});
+                                                                                customize_field.push({"field_name": "专业名称", "field_value": form_data2.major_name});
+                                                                                customize_field.push({
+                            "field_name": "封面图片",
+                            "field_value": form_data2.cover_photo,
+                            "type": "image"
+                        });
+                                                                                customize_field.push({"field_name": "学费信息", "field_value": form_data2.tuition_information});
+                                                                                customize_field.push({"field_name": "申请要求", "field_value": form_data2.application_requirements});
+                                                                                customize_field.push({"field_name": "学位介绍", "field_value": form_data2.degree_introduction});
+                                                                                customize_field.push({"field_name": "就业情况", "field_value": form_data2.employment_situation});
+                                                                                customize_field.push({"field_name": "专业介绍", "field_value": form_data2.professional_introduction});
+                                    
+                
+                if (professional_information_id == '') {
+                                        console.log("新增/Add")
+                    const {data: res} = await axios.post(BaseUrl + '/api/professional_information/add?',
+                            form_data2, {
+                                headers: {
+                                    'x-auth-token': token,
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                                        if (res.result == 1) {
+                        layer.msg('确认/Confirm完毕');
+                        setTimeout(function () {
+                            window.location.replace("./table.html");
+                        }, 1000)
+                    }else {
+              layer.msg(res.error.message);
+            }
+                                    } else {
+                                        console.log("详情/Details")
+                    
+                    const {data: res} = await axios.post(BaseUrl + '/api/professional_information/set?professional_information_id=' + professional_information_id,
+                            form_data2, {
+                                headers: {
+                                    'x-auth-token': token,
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                    if (res.result == 1) {
+                        layer.msg('确认/Confirm完毕');
+                        setTimeout(function () {
+                            window.location.replace("./table.html");
+                        }, 1000)
+                    }else {
+              layer.msg(res.error.message);
+            }
+                }
+            }
+        
+    })
+    ;
+</script>
+
+</html>

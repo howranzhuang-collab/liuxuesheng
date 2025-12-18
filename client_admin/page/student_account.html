@@ -1,0 +1,329 @@
+<!-- 学生账户页面 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>个人账户 - 留学生报名网站</title>
+    <script src="../js/index.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/diy.css">
+    <style>
+        .nav-container {
+            background-color: #34495e;
+            color: white;
+        }
+        .nav-bar {
+            margin: 0 auto;
+            width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .nav-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .nav-links a:hover {
+            color: #1abc9c;
+        }
+        .user-info {
+            display: flex;
+            gap: 10px;
+        }
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        .page-title {
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .account-info {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+        .info-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .info-label {
+            width: 150px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        .info-value {
+            color: #7f8c8d;
+        }
+        .btn-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #1abc9c;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+        .btn-primary:hover {
+            background-color: #16a085;
+        }
+        .section-title {
+            font-size: 24px;
+            color: #34495e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1abc9c;
+        }
+        .application-list {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .app-item {
+            padding: 20px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .app-item:last-child {
+            border-bottom: none;
+        }
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .app-title {
+            font-weight: bold;
+            color: #34495e;
+        }
+        .app-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-pending {
+            background-color: #f39c12;
+            color: white;
+        }
+        .status-approved {
+            background-color: #27ae60;
+            color: white;
+        }
+        .status-rejected {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .app-details {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        .app-date {
+            font-size: 12px;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-container">
+        <div class="nav-bar">
+            <div class="nav-title">留学生报名网站管理系统</div>
+            <div class="nav-links">
+                <a href="./user_home.html">Home</a>
+                <a href="./notice/table.html">公告信息</a>
+                <a href="#">留学资讯</a>
+                <a href="./student_account.html">个人账户</a>
+                <a href="./info.html">个人资料</a>
+                <a href="./application_guide/table.html">申请指南</a>
+                <a href="#">关于我们</a>
+                <a href="./professional_information/table.html">专业信息</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeText">欢迎您</span>
+                <a href="#" id="logoutBtn">退出</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="container">
+        <h1 class="page-title">个人账户</h1>
+
+        <!-- 账户信息 -->
+        <div class="account-info">
+            <h2 class="section-title">基本信息</h2>
+            <div class="info-item">
+                <div class="info-label">姓名：</div>
+                <div class="info-value" id="studentName">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">账号：</div>
+                <div class="info-value" id="studentUsername">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">身份：</div>
+                <div class="info-value" id="studentIdentity">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">注册时间：</div>
+                <div class="info-value" id="registrationTime">-</div>
+            </div>
+
+            <div class="btn-section">
+                <a href="./info.html" class="btn-primary">修改个人资料</a>
+                <a href="./change_password.html" class="btn-primary">修改密码</a>
+            </div>
+        </div>
+
+        <!-- 我的申请 -->
+        <div class="application-section">
+            <h2 class="section-title">我的申请</h2>
+            <div class="application-list" id="applicationList">
+                <!-- 申请列表将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
+        <!-- 学费缴纳 -->
+        <div class="tuition-section" style="margin-top: 40px;">
+            <h2 class="section-title">学费缴纳</h2>
+            <div class="btn-section">
+                <a href="./tuition_payment/table.html" class="btn-primary">查看缴纳记录</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/base.js"></script>
+    <script type="text/javascript">
+        var BaseUrl = baseUrl()
+        let personInfo;
+        try {
+            personInfo = JSON.parse(sessionStorage.personInfo)
+            // 显示欢迎信息
+            if (personInfo) {
+                document.getElementById('welcomeText').textContent = `欢迎您，${personInfo.nickname || personInfo.username}`;
+                // 填充个人信息
+                document.getElementById('studentName').textContent = personInfo.nickname || personInfo.username;
+                document.getElementById('studentUsername').textContent = personInfo.username;
+                document.getElementById('studentIdentity').textContent = personInfo.user_group;
+                if (personInfo.create_time) {
+                    document.getElementById('registrationTime').textContent = new Date(personInfo.create_time).toLocaleString();
+                }
+            }
+        } catch (error) {
+            console.error('解析用户信息出错:', error)
+            // 如果解析失败，跳转到登录页面
+            window.location.href = '../index.html';
+        }
+
+        // 退出登录
+        document.getElementById('logoutBtn').onclick = async function() {
+            try {
+                await axios.get(BaseUrl + '/api/user/quit', {
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            } catch (error) {
+                console.error('退出登录失败:', error);
+                // 即使API请求失败，也清除本地数据并重定向
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            }
+        };
+
+        // 获取我的申请列表
+        async function getMyApplications() {
+            try {
+                const { data } = await axios.get(BaseUrl + '/api/application_for_studying_abroad/get_list', {
+                    params: {
+                        student_id: personInfo.user_id,
+                        size: 10,
+                        orderby: 'create_time desc'
+                    },
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+
+                if (data.result && data.result.list) {
+                    renderApplications(data.result.list);
+                } else {
+                    document.getElementById('applicationList').innerHTML = '<div style="padding: 40px; text-align: center; color: #7f8c8d;">暂无申请记录</div>';
+                }
+            } catch (error) {
+                console.error('获取申请列表失败:', error);
+                document.getElementById('applicationList').innerHTML = '<div style="padding: 40px; text-align: center; color: #e74c3c;">获取申请记录失败</div>';
+            }
+        }
+
+        // 渲染申请列表
+        function renderApplications(applications) {
+            const container = document.getElementById('applicationList');
+            if (applications.length === 0) {
+                container.innerHTML = '<div style="padding: 40px; text-align: center; color: #7f8c8d;">暂无申请记录</div>';
+                return;
+            }
+
+            let html = '';
+            applications.forEach(app => {
+                // 获取状态样式
+                let statusClass = 'status-pending';
+                if (app.examine_state === '已通过') {
+                    statusClass = 'status-approved';
+                } else if (app.examine_state === '已拒绝') {
+                    statusClass = 'status-rejected';
+                }
+
+                html += `
+                    <div class="app-item">
+                        <div class="app-header">
+                            <div class="app-title">${app.major_name || '未命名申请'}</div>
+                            <div class="app-status ${statusClass}">${app.examine_state || '处理中'}</div>
+                        </div>
+                        <div class="app-details">院校：${app.name_of_institution || '未选择'}</div>
+                        <div class="app-date">申请时间：${new Date(app.create_time).toLocaleString()}</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 页面加载时获取申请列表
+        getMyApplications();
+
+        // 初始化layui组件
+        layui.use(['element', 'layer'], function() {
+            var element = layui.element;
+            var layer = layui.layer;
+        });
+    </script>
+</body>
+
+</html>

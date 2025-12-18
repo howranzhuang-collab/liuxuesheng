@@ -1,0 +1,510 @@
+<!-- 用户端专业信息界面 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>专业信息 - 留学生报名网站</title>
+    <script src="../js/index.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/diy.css">
+    <style>
+        .nav-container {
+            background-color: #34495e;
+            color: white;
+        }
+        .nav-bar {
+            margin: 0 auto;
+            width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .nav-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #1abc9c;
+        }
+        .user-info {
+            display: flex;
+            gap: 10px;
+        }
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .page-title {
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .search-section {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+        .search-form {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .search-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .search-item label {
+            font-weight: bold;
+            color: #34495e;
+        }
+        .search-item input {
+            width: 200px;
+            height: 36px;
+            padding: 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .search-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .professional-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        .professional-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .professional-card:hover {
+            transform: translateY(-5px);
+        }
+        .card-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .institution-name {
+            font-weight: bold;
+            color: #34495e;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .major-name {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .apply-btn {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+        }
+        .apply-btn:hover {
+            background-color: #16a085;
+        }
+        .pagination {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .page-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .page-btn:hover, .page-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-container">
+        <div class="nav-bar">
+            <div class="nav-title">留学生报名网站管理系统</div>
+            <div class="nav-links">
+                <a href="./user_home.html">Home</a>
+                <a href="./notice/table.html">公告信息</a>
+                <a href="#">留学资讯</a>
+                <a href="./student_account.html">个人账户</a>
+                <a href="./info.html">个人资料</a>
+                <a href="./application_guide/table.html">申请指南</a>
+                <a href="#">关于我们</a>
+                <a href="./professional_info_client.html" class="active">专业信息</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeText">欢迎您</span>
+                <a href="#" id="logoutBtn">退出</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="container">
+        <h1 class="page-title">专业信息列表</h1>
+        
+        <!-- 搜索区域 -->
+        <div class="search-section">
+            <form class="search-form">
+                <div class="search-item">
+                    <label>院校名称搜索：</label>
+                    <input type="text" id="institutionSearch" placeholder="请输入院校名称">
+                </div>
+                <div class="search-item">
+                    <label>专业名称搜索：</label>
+                    <input type="text" id="majorSearch" placeholder="请输入专业名称">
+                </div>
+                <button type="button" class="search-btn" onclick="searchProfessionals()">
+                    <i class="layui-icon layui-icon-search"></i>
+                </button>
+            </form>
+        </div>
+        
+
+        
+        <!-- 专业信息列表 -->
+        <div class="professional-grid" id="professionalGrid">
+            <!-- 专业信息卡片将通过JavaScript动态生成 -->
+        </div>
+        
+        <!-- 分页 -->
+        <div class="pagination" id="pagination">
+            <!-- 分页按钮将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <script src="../js/base.js"></script>
+    <script type="text/javascript">
+        var BaseUrl = baseUrl()
+        let personInfo;
+        let currentPage = 1;
+        let pageSize = 8;
+        let searchParams = {};
+        
+        try {
+            personInfo = JSON.parse(sessionStorage.personInfo)
+            // 显示欢迎信息
+            if (personInfo) {
+                document.getElementById('welcomeText').textContent = `欢迎您，${personInfo.nickname || personInfo.username}`;
+            }
+        } catch (error) {
+            console.error('解析用户信息出错:', error)
+            // 如果解析失败，跳转到登录页面
+            window.location.href = '../index.html';
+        }
+
+        // 退出登录
+        document.getElementById('logoutBtn').onclick = async function() {
+            try {
+                await axios.get(BaseUrl + '/api/user/quit', {
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            } catch (error) {
+                console.error('退出登录失败:', error);
+                // 即使API请求失败，也清除本地数据并重定向
+                sessionStorage.clear();
+                window.location.href = '../index.html';
+            }
+        };
+        
+        // 获取专业信息列表
+        async function getProfessionalList() {
+            try {
+                const params = {
+                    page: currentPage,
+                    size: pageSize,
+                    ...searchParams
+                };
+                
+                const response = await axios.get(BaseUrl + '/api/professional_information/get_list', {
+                    params: params,
+                    headers: {
+                        "x-auth-token": sessionStorage.token
+                    }
+                });
+                
+                if (response.data.code === 200) {
+                    renderProfessionalGrid(response.data.result.list);
+                    renderPagination(response.data.result.count);
+                } else {
+                    console.error('获取专业信息失败:', response.data.msg);
+                    // 使用模拟数据展示
+                    loadMockData();
+                }
+            } catch (error) {
+                console.error('获取专业信息出错:', error);
+                // 使用模拟数据展示
+                loadMockData();
+            }
+        }
+        
+        // 加载模拟数据
+        function loadMockData() {
+            const mockData = [
+                {
+                    professional_information_id: 1,
+                    name_of_institution: '北京理工大学',
+                    major_name: '计算机科学与技术',
+                    cover_photo: '',
+                    tuition_information: '30000元/年',
+                    application_requirements: 'HSK6级，数学基础扎实，英语四级以上',
+                    degree_introduction: '本科学位，学制4年',
+                    employment_situation: '就业率98%，平均起薪18万人民币/年',
+                    professional_introduction: '本专业培养具有计算机科学理论基础和实际应用能力的高级人才，注重留学生的实践能力培养',
+                    hits: 150,
+                    create_time: '2023-01-15 10:30:00',
+                    update_time: '2023-01-20 14:20:00'
+                },
+                {
+                    professional_information_id: 2,
+                    name_of_institution: '北京理工大学',
+                    major_name: '电子信息工程',
+                    cover_photo: '',
+                    tuition_information: '28000元/年',
+                    application_requirements: 'HSK5级，物理基础良好，英语水平达标',
+                    degree_introduction: '本科学位，学制4年',
+                    employment_situation: '就业率97%，平均起薪16万人民币/年',
+                    professional_introduction: '本专业专注于电子信息领域的前沿技术研究，为留学生提供国际化的学习环境',
+                    hits: 200,
+                    create_time: '2023-02-01 09:15:00',
+                    update_time: '2023-02-10 11:45:00'
+                },
+                {
+                    professional_information_id: 3,
+                    name_of_institution: '北京理工大学',
+                    major_name: '机械工程',
+                    cover_photo: '',
+                    tuition_information: '26000元/年',
+                    application_requirements: 'HSK5级，物理、数学基础扎实',
+                    degree_introduction: '本科学位，学制4年',
+                    employment_situation: '就业率96%，平均起薪15万人民币/年',
+                    professional_introduction: '培养具有机械工程领域创新能力的高级工程技术人才，留学生可参与实际项目研发',
+                    hits: 180,
+                    create_time: '2023-03-05 16:20:00',
+                    update_time: '2023-03-15 08:30:00'
+                },
+                {
+                    professional_information_id: 4,
+                    name_of_institution: '北京理工大学',
+                    major_name: '国际经济与贸易',
+                    cover_photo: '',
+                    tuition_information: '24000元/年',
+                    application_requirements: 'HSK6级，英语六级以上，经济学基础',
+                    degree_introduction: '本科学位，学制4年',
+                    employment_situation: '就业率95%，平均起薪14万人民币/年',
+                    professional_introduction: '本专业培养具有国际视野和跨文化交流能力的经济贸易人才，为留学生提供全英文授课课程',
+                    hits: 220,
+                    create_time: '2023-01-10 14:00:00',
+                    update_time: '2023-01-25 15:30:00'
+                },
+                {
+                    professional_information_id: 5,
+                    name_of_institution: '北京理工大学',
+                    major_name: '汉语国际教育',
+                    cover_photo: '',
+                    tuition_information: '22000元/年',
+                    application_requirements: 'HSK4级，对中国文化有浓厚兴趣',
+                    degree_introduction: '本科学位，学制4年',
+                    employment_situation: '就业率99%，平均起薪12万人民币/年',
+                    professional_introduction: '本专业培养国际汉语教师和中华文化传播者，注重语言实践和文化体验',
+                    hits: 250,
+                    create_time: '2023-02-20 11:15:00',
+                    update_time: '2023-02-28 16:45:00'
+                },
+                {
+                    professional_information_id: 6,
+                    name_of_institution: '北京理工大学',
+                    major_name: '材料科学与工程',
+                    cover_photo: '',
+                    tuition_information: '27000元/年',
+                    application_requirements: 'HSK5级，化学、物理基础良好',
+                    degree_introduction: '本科学位，学制4年',
+                    employment_situation: '就业率96%，平均起薪15万人民币/年',
+                    professional_introduction: '专注于材料科学领域的前沿研究，为留学生提供先进的实验设备和研究环境',
+                    hits: 190,
+                    create_time: '2023-03-10 09:30:00',
+                    update_time: '2023-03-20 14:15:00'
+                },
+                {
+                    professional_information_id: 7,
+                    name_of_institution: '北京理工大学',
+                    major_name: '自动化',
+                    cover_photo: '',
+                    tuition_information: '29000元/年',
+                    application_requirements: 'HSK5级，数学、物理基础扎实，编程能力',
+                    degree_introduction: '本科学位，学制4年',
+                    employment_situation: '就业率97%，平均起薪17万人民币/年',
+                    professional_introduction: '培养自动化领域的高级技术人才，留学生可参与智能制造、人工智能等前沿项目',
+                    hits: 170,
+                    create_time: '2023-01-05 15:45:00',
+                    update_time: '2023-01-15 10:20:00'
+                },
+                {
+                    professional_information_id: 8,
+                    name_of_institution: '北京理工大学',
+                    major_name: '软件工程',
+                    cover_photo: '',
+                    tuition_information: '32000元/年',
+                    application_requirements: 'HSK5级，编程基础良好，英语水平达标',
+                    degree_introduction: '本科学位，学制4年',
+                    employment_situation: '就业率99%，平均起薪20万人民币/年',
+                    professional_introduction: '培养具有国际视野的软件工程高级人才，注重留学生的项目实践和团队协作能力',
+                    hits: 210,
+                    create_time: '2023-02-15 13:20:00',
+                    update_time: '2023-02-25 09:45:00'
+                }
+            ];
+            
+            // 模拟分页
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = startIndex + pageSize;
+            const paginatedData = mockData.slice(startIndex, endIndex);
+            
+            renderProfessionalGrid(paginatedData);
+            renderPagination(mockData.length);
+        }
+        
+        // 渲染专业信息卡片
+        function renderProfessionalGrid(professionals) {
+            const grid = document.getElementById('professionalGrid');
+            
+            if (professionals.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #7f8c8d;">暂无专业信息</div>';
+                return;
+            }
+            
+            let html = '';
+            professionals.forEach(professional => {
+                html += `
+                    <div class="professional-card">
+                        <img src="${professional.cover_photo ? fullUrl(BaseUrl, professional.cover_photo) : '../img/default.png'}" class="card-image">
+                        <div class="card-content">
+                            <div class="institution-name">${professional.name_of_institution || '未知院校'}</div>
+                            <div class="major-name">${professional.major_name || '未知专业'}</div>
+                            <button class="apply-btn" onclick="applyForProfessional('${professional.professional_information_id}')">立即申请</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+        
+        // 渲染分页
+        function renderPagination(totalCount) {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(totalCount / pageSize);
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            
+            // 上一页
+            html += `<button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                        上一页
+                    </button>`;
+            
+            // 页码
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="page-btn ${currentPage === i ? 'active' : ''}" onclick="goToPage(${i})">
+                            ${i}
+                        </button>`;
+            }
+            
+            // 下一页
+            html += `<button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                        下一页
+                    </button>`;
+            
+            pagination.innerHTML = html;
+        }
+        
+        // 搜索专业信息
+        function searchProfessionals() {
+            searchParams = {
+                name_of_institution: document.getElementById('institutionSearch').value,
+                major_name: document.getElementById('majorSearch').value
+            };
+            currentPage = 1;
+            getProfessionalList();
+        }
+        
+
+        
+        // 跳转到指定页
+        function goToPage(page) {
+            if (page < 1) return;
+            currentPage = page;
+            getProfessionalList();
+        }
+        
+        // 申请专业
+        function applyForProfessional(professionalId) {
+            window.location.href = `./professional_apply.html?id=${professionalId}`;
+        }
+        
+        // 页面加载时获取专业信息列表
+        window.onload = function() {
+            getProfessionalList();
+        };
+
+        // 初始化layui组件
+        layui.use(['element', 'layer'], function() {
+            var element = layui.element;
+            var layer = layui.layer;
+        });
+    </script>
+</body>
+
+</html>
