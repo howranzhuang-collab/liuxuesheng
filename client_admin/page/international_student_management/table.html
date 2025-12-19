@@ -1,496 +1,192 @@
-<!-- 模板引擎 table 页面 -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>留学生管理</title>
     <link rel="stylesheet" href="../../layui/css/layui.css">
     <link rel="stylesheet" href="../../css/diy.css">
-
+    <style>
+        /* 表格字体清晰度提升 */
+        .layui-table th, .layui-table td {
+            color: #333 !important;
+        }
+        .layui-table th {
+            background-color: #f2f2f2 !important;
+            font-weight: bold;
+        }
+        .layui-table tbody tr:hover {
+            background-color: #f8f8f8 !important;
+        }
+        .layui-table-view .layui-table {
+            border: 1px solid #e6e6e6;
+        }
+    </style>
 </head>
-
 <body>
-<div class="section1">
-    <!-- 内容主体区域 -->
-    <div class="manu" style="padding: 15px;">
-        <form class="layui-form" action="">
+<div class="section1" style="padding: 20px;">
+    <!-- 搜索区 -->
+    <div style="background:#f8f8f8; padding:15px; border-radius:8px; margin-bottom:15px;">
+        <form class="layui-form layui-form-pane" lay-filter="searchForm">
             <div class="layui-form-item">
-                
-                                                                                        <label class="layui-form-label">学生姓名</label>
-                                                            <div class="layui-input-block block">
-                                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                                                                                                                                                                        <label class="layui-form-label">学生国籍</label>
-                                                            <div class="layui-input-block block">
-                                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                                                                                                                                                                                                                                                                                    </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">学生姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="student_name" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">学生国籍</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="student_nationality" autocomplete="off" placeholder="请输入国籍" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button type="button" class="layui-btn layui-btn-normal" id="inquire">
+                        <i class="layui-icon layui-icon-search"></i> 查询
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-warm" id="reset">
+                        <i class="layui-icon layui-icon-refresh"></i> 重置
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
-    <div class="buts">
-                    <button type="button" class="layui-btn layui-btn-normal" id="inquire">查询/Query</button>
-            <button type="button" class="layui-btn layui-btn-normal" id="reset">重置/Reset</button>
-                <button type="button" class="layui-btn layui-btn-normal" id="delete" style="display: none">删除/Del</button>
-        <a href="./view_add.html" type="button" class="layui-btn layui-btn-normal" target="main_self_frame" id="add"
-           style="display: none">新增/Add</a>
 
-            </div>
-
-
-    <div class="table">
-        <table class="layui-hide" id="international_student_management" lay-filter="international_student_management"></table>
-
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-
-                
-                
-                
-                {{# if(d.detail_flag){ }}
-                <button class="layui-btn layui-btn-sm" lay-event="detail">详情/Details</button>
-                {{# } }}
-            </div>
-        </script>
+    <!-- 操作按钮区 -->
+    <div style="margin-bottom:15px;">
+        <button type="button" class="layui-btn layui-btn-danger" id="batchDelete">
+            <i class="layui-icon layui-icon-delete"></i> 批量删除
+        </button>
+        <a href="./view_add.html" class="layui-btn layui-btn-normal">
+            <i class="layui-icon layui-icon-add-1"></i> 新增留学生
+        </a>
     </div>
+
+    <!-- 表格 -->
+    <table class="layui-hide" id="international_student_management" lay-filter="international_student_management"></table>
+
+    <!-- 操作列模板 -->
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-xs" lay-event="detail">查看</button>
+            <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</button>
+            <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</button>
+        </div>
+    </script>
 </div>
-</body>
+
 <script src="../../layui/layui.js"></script>
-<script src="../../js/index.js"></script>
-<script src="../../js/base.js"></script>
 <script src="../../js/axios.min.js"></script>
-    <script>
+<script src="../../js/base.js"></script>
+<script>
+    const BaseUrl = baseUrl();
+    axios.defaults.baseURL = BaseUrl;
 
-    var BaseUrl = baseUrl()
-    layui.use(['element', 'layer', 'util'], function () {
-        var element = layui.element
-                , layer = layui.layer
-                , util = layui.util
-                , table = layui.table
-                , $ = layui.$;
+    layui.use(['table', 'layer', 'form'], function(){
+        const table = layui.table;
+        const layer = layui.layer;
+        const form = layui.form;
 
-        let personInfo = JSON.parse(sessionStorage.personInfo)
-        let user_group = personInfo.user_group
-        let use_id = personInfo.user_id
-        let url = BaseUrl + '/api/international_student_management/get_list?like=0'
+        const token = sessionStorage.getItem('token');
 
-        let deletes = document.querySelector('#delete')
-        let add = document.querySelector('#add')
-        let sqlwhere
-        let data_data = {size: 10, orderby: 'create_time desc'}
-        let detail_flag = false;
+        let where = { like: 0, size: 10 };
 
-        // 获取路径权限
-        async function get_list() {
-            let {data: ren} = await axios.get(BaseUrl + '/api/auth/get_list', {
-                params: {
-                    user_group: personInfo.user_group
-                }
-            })
-        }
-
-        get_list()
-
-
-        // 权限判断
-        /**
-         * 获取路径对应操作权限 鉴权
-         * @param {String} action 操作名
-         */
-        function $check_action(path1, action = "get") {
-            var o = $get_power(path1);
-            if (o && o[action] != 0 && o[action] != false) {
-                return true;
-            }
-            return false;
-        }
-
-        if (user_group == "管理员" || $check_action('/international_student_management/table', 'del') || $check_action('/international_student_management/view', 'del')) {
-            deletes.style.display = "block"
-        }
-        if (user_group == "管理员" || $check_action('/international_student_management/table', 'add') || $check_action('/international_student_management/view', 'add')) {
-            add.style.display = "block"
-        }
-        if (user_group == "管理员" || $check_action('/international_student_management/view', 'get') || $check_action('/international_student_management/view', 'set')) {
-            detail_flag = true;
-        }
-
-        /**
-         * 获取权限
-         * @param {String} path 路由路径
-         */
-        function $get_power(path) {
-            var list_data = JSON.parse(sessionStorage.list_data)
-            var list = list_data;
-            var obj;
-            for (var i = 0; i < list.length; i++) {
-                var o = list[i];
-                if (o.path === path) {
-                    obj = o;
-                    break;
-                }
-            }
-            return obj;
-        }
-
-        var path1
-
-        function getpath() {
-            var list_data = JSON.parse(sessionStorage.list_data)
-            for (var i = 0; i < list_data.length; i++) {
-                var o = list_data[i];
-                if (o.path === "/international_student_management/table") {
-                    console.log(o.path);
-                    path1 = o.path
-                        $get_power(o.path)
-                }
-            }
-        }
-
-        getpath()
-        /**
-         * 注册时是否有显示或操作字段的权限
-         * @param {String} action 操作名
-         * @param {String} field 查询的字段
-         * @param {String} path 路径
-         */
-        function $check_register_field(action, field, path1) {
-            var o = $get_power(path1);
-            var auth;
-            if (o && o[action] != 0 && o[action] != false) {
-                auth = o["field_" + action];
-            }
-            if (auth) {
-                return auth.indexOf(field) !== -1;
-            }
-            return false;
-        }
-
-        /**
-         * 是否有显示或操作字段的权限
-         * @param {String} action 操作名
-         * @param {String} field 查询的字段
-         */
-        function $check_field(action, field, path1) {
-            var o = $get_power(path1);
-            var auth;
-            if (o && o[action] != 0 && o[action] != false) {
-                auth = o["field_" + action];
-            }
-            if (auth) {
-                return auth.indexOf(field) !== -1;
-            }
-            return false;
-        }
-
-        /**
-         * 是否有显示或操作支付的权限
-         * @param {String} path 路径
-         */
-        function $check_pay(path) {
-            let o = $get_power(path);
-            if (o){
-                let option = JSON.parse(o.option);
-                if (option.pay)
-                    return true
-            }
-            return false;
-        }
-
-        /**
-         * 获取路径对应操作权限 鉴权
-         * @param {String} action 操作名
-         */
-        function $check_exam(path1, action = "get") {
-            var o = $get_power(path1);
-            if (o) {
-                var option = JSON.parse(o.option);
-                if (option[action])
-                    return true
-            }
-            return false;
-        }
-
-        function $check_option(path,op) {
-            var o = $get_power(path);
-            if (o){
-                var option = JSON.parse(o.option);
-                if (option[op])
-                    return true
-            }
-            return false;
-        }
-
-        
-        let token = sessionStorage.token || null
-    table.render({
-        elem: '#international_student_management'
-        , toolbar: true
-        , url: url
-        , headers: {
-            'x-auth-token': token,
-            'Content-Type': 'application/json'
-        }
-        , page: {
-            layout: ['limit', 'count', 'prev', 'page', 'next', 'skip']
-            //,curr: 5
-            , groups: 1
-            , first: false
-            , last: false
-        }
-        , cols: [[
-                    {type: 'checkbox', fixed: 'left'}
-                        
-                                    , {
-                field: 'student_name', width: 180, title: '学生姓名', sort: true
-                                                                                                                                                
-            }
-                                                , {
-                field: 'student_gender', width: 180, title: '学生性别', sort: true
-                                                                                                                                                
-            }
-                                                , {
-                field: 'student_nationality', width: 180, title: '学生国籍', sort: true
-                                                                                                                                                
-            }
-                                                , {
-                field: 'overseas_universities', width: 180, title: '留学院校', sort: true
-                                                                                                                                                
-            }
-                                                , {
-                field: 'major_name', width: 180, title: '专业名称', sort: true
-                                                                                                                                                
-            }
-                                                , {
-                field: 'study_time', width: 180, title: '留学时间', sort: true
-                                                                    , templet: "<div>{{layui.util.toDateString(d.study_time, 'yyyy-MM-dd')}}</div>"
-                                                                                                                
-            }
-                                                , {
-                field: 'student_status', width: 180, title: '学生学籍', sort: true
-                                                                                                                                                
-            }
-                    
-        
-        
-                
-    ,
-        {
-            field: 'create_time',
-                    width
-        :
-            '20%',
-                    title
-        :
-            '新增时间',
-                    sort
-        :
-            true,
-                    templet
-        :
-            "<div>{{layui.util.toDateString(d.create_time, 'yyyy-MM-dd HH:mm:ss')}}</div>"
-        }
-    ,
-        {
-            field: 'update_time',
-                    width
-        :
-            '20%',
-                    title
-        :
-            '更新时间',
-                    sort
-        :
-            true,
-                    templet
-        :
-            "<div>{{layui.util.toDateString(d.update_time, 'yyyy-MM-dd HH:mm:ss')}}</div>"
-        }
-                
-        
-        
-        
-                ,
-            {
-                field: 'operate',
-                        title
-            :
-                '操作',
-                        sort
-            :
-                true,
-                        width
-            :
-                '20%',
-                        fixed
-            :
-                'right',
-                        toolbar
-            :
-                "#toolbarDemo"
-            }
+        table.render({
+            elem: '#international_student_management'
+            , url: BaseUrl + '/api/international_student_management/get_list'
+            , headers: { 'x-auth-token': token }
+            , page: true
+            , limit: 10
+            , limits: [10, 20, 30, 50]
+            , cols: [[
+                { type: 'checkbox', fixed: 'left' }
+                , { field: 'student_name', title: '学生姓名', width: 150, sort: true }
+                , { field: 'student_gender', title: '学生性别', width: 100 }
+                , { field: 'student_nationality', title: '学生国籍', width: 120 }
+                , { field: 'overseas_universities', title: '留学院校', width: 200 }
+                , { field: 'major_name', title: '专业名称', width: 180 }
+                , { field: 'study_time', title: '留学时间', width: 120, templet: d => layui.util.toDateString(d.study_time, 'yyyy-MM-dd') }
+                , { field: 'student_status', title: '学生学籍', width: 200 }
+                , { field: 'create_time', title: '新增时间', width: 180, sort: true, templet: d => layui.util.toDateString(d.create_time, 'yyyy-MM-dd HH:mm:ss') }
+                , { field: 'update_time', title: '更新时间', width: 180, sort: true, templet: d => layui.util.toDateString(d.update_time, 'yyyy-MM-dd HH:mm:ss') }
+                , { fixed: 'right', title: '操作', toolbar: '#toolbarDemo', width: 200 }
             ]]
-
-    ,
-        done: function (res, curr, count) { // 表格渲染完成之后的回调
-            if (res.count == null) { // 无数据时直接返回了
-                return;
+            , parseData: function(res) {
+                // 你的后端成功返回 code: 200
+                if (res.code === 200 && res.result) {
+                    return {
+                        code: 0, // Layui table 要求 code: 0 表示成功
+                        msg: '',
+                        count: res.result.count || 0,
+                        data: res.result.list || []
+                    };
+                }
+                // 失败或异常
+                return {
+                    code: 0,
+                    msg: res.error?.message || '数据加载失败',
+                    count: 0,
+                    data: []
+                };
             }
-
-                                                if (user_group === '管理员' || $check_field('get', 'student_name', path1)) {
-                        // console.log("显示")
-                    } else {
-                        $("[data-field='student_name']").css('display', 'none');
-                    }
-                                                                if (user_group === '管理员' || $check_field('get', 'student_gender', path1)) {
-                        // console.log("显示")
-                    } else {
-                        $("[data-field='student_gender']").css('display', 'none');
-                    }
-                                                                if (user_group === '管理员' || $check_field('get', 'student_nationality', path1)) {
-                        // console.log("显示")
-                    } else {
-                        $("[data-field='student_nationality']").css('display', 'none');
-                    }
-                                                                if (user_group === '管理员' || $check_field('get', 'overseas_universities', path1)) {
-                        // console.log("显示")
-                    } else {
-                        $("[data-field='overseas_universities']").css('display', 'none');
-                    }
-                                                                if (user_group === '管理员' || $check_field('get', 'major_name', path1)) {
-                        // console.log("显示")
-                    } else {
-                        $("[data-field='major_name']").css('display', 'none');
-                    }
-                                                                if (user_group === '管理员' || $check_field('get', 'study_time', path1)) {
-                        // console.log("显示")
-                    } else {
-                        $("[data-field='study_time']").css('display', 'none');
-                    }
-                                                                if (user_group === '管理员' || $check_field('get', 'student_status', path1)) {
-                        // console.log("显示")
-                    } else {
-                        $("[data-field='student_status']").css('display', 'none');
-                    }
-                            
-            
-            
-            
-                        // 重新渲染
-        }
-    ,
-        page: true,
-                request
-    :
-        {
-            limitName: 'size'
-        }
-    ,
-        response: {
-            statusName: 'code', //规定返回/Back的状态码字段为code
-                    statusCode
-        :
-            200 //规定成功的状态码为200
-        }
-    ,
-        parseData: function (res) {
-
-            
-            if (user_group == "管理员" || $check_pay('/international_student_management/table')) {
-                for (var i = 0; i < res.result.list.length; i++) {
-                    res.result.list[i].check_pay = true
+            , where: where
+            , done: function(res, curr, count) {
+                // 返回列表后强制刷新
+                if (location.search.includes('refresh')) {
+                    table.reload('international_student_management');
+                }
+                // 空数据提示
+                if (count === 0) {
+                    $('.layui-table-body').html('<div style="text-align:center;padding:50px;color:#999;font-size:16px;">暂无数据</div>');
                 }
             }
-            if (user_group == "管理员" || $check_action('/international_student_management/view', 'set') || $check_action('/international_student_management/view', 'get')) {
-                for (var i = 0; i < res.result.list.length; i++) {
-                    res.result.list[i].detail_flag = detail_flag
-                }
-            }
-            return {
-                "code": 200,
-                "msg": "",
-                "count": res.result.count,
-                "data": res.result.list
-            }
-        }
-    ,
-        where: data_data
-    })
-        ;
+        });
 
+        // 搜索
+        $('#inquire').on('click', function(){
+            const formData = form.val('searchForm');
+            where = { ...where, ...formData, like: 1 };
+            table.reload('international_student_management', { where });
+        });
 
-        table.on('tool(international_student_management)', function (obj) {
-            var data = obj.data;
-        if (obj.event === 'detail')
-        {
+        // 重置
+        $('#reset').on('click', function(){
+            form.val('searchForm', {});
+            where = { like: 0, size: 10 };
+            table.reload('international_student_management', { where });
+        });
 
-                            window.location.href = "./view_add.html?" + data.international_student_management_id;
+        // 批量删除（占位）
+        $('#batchDelete').on('click', function(){
+            const checkStatus = table.checkStatus('international_student_management');
+            if (checkStatus.data.length === 0) return layer.msg('请先选择数据');
+            layer.confirm(`确定删除 ${checkStatus.data.length} 条记录？`, () => {
+                layer.msg('批量删除功能待实现');
+            });
+        });
+
+        // 操作列事件
+        table.on('tool(international_student_management)', function(obj){
+            const data = obj.data;
+            if(obj.event === 'detail' || obj.event === 'edit'){
+                location.href = `./view_add.html?${data.international_student_management_id}`;
+            } else if(obj.event === 'del'){
+                layer.confirm('确定删除此条记录？', async () => {
+                    try {
+                        await axios.post(BaseUrl + '/api/international_student_management/del', {
+                            international_student_management_id: data.international_student_management_id
+                        }, { headers: { 'x-auth-token': token } });
+                        layer.msg('删除成功');
+                        table.reload('international_student_management');
+                    } catch (e) {
+                        layer.msg('删除失败');
                     }
-            
-            
-
-                                });
-
-        //下拉框
-
-        
-                                                                                                                                                                                                                                                                                                            // 学生性别选项列表
-                let student_gender_data = ['男','女'];
-                                        async function student_gender() {
-                    var student_gender = document.querySelector("#student_gender")
-                    var op1 = document.createElement("option");
-                        student_gender.appendChild(op1)
-                    // 收集数据 长度
-                    var count
-                    // 收集数据 数组
-                    var arr = []
-                    count = student_gender_data.length
-                    arr = student_gender_data
-                    for (var i = 0; i < arr.length; i++) {
-                        // 创建节点
-                        var op = document.createElement("option");
-                        // 给节点赋值
-                        op.innerHTML = arr[i]
-                        op.value = arr[i]
-                        // 新增/Add节点
-                            student_gender.appendChild(op)
-                        layui.form.render("select");
-                    }
-                }
-
-                layui.form.on('select(student_gender)', function (data) {
-                    request.student_gender = data.elem[data.elem.selectedIndex].text;
-                })
-                    student_gender()
-                                                                                                                                                                                    
-        // 请求参数：
-        let request = {
-            like: 0, size: 10, page: 1,
-                                                                                    'student_name': '',
-                                                                                                                                        'student_nationality': '',
-                                                                                                                                                                        }
-
-        if (user_group != "管理员") {
-            request['orderby'] = 'create_time desc'
-            if (sqlwhere){
-                request['sqlwhere'] = sqlwhere
+                });
             }
-        }
-
-        // 重置/Reset参数
-        let resetName = data_data
-
-        // 下拉框的重置/Reset参数
-        let resetSelect = []
-        //下拉框重置/Reset参数
-        fun('international_student_management', BaseUrl + '/api/international_student_management/del', 'international_student_management_id', request, resetName, resetSelect        )
-
-    
-    })
+        });
+    });
 </script>
-
+</body>
 </html>
