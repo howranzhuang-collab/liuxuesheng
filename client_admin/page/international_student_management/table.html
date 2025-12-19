@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../../layui/css/layui.css">
     <link rel="stylesheet" href="../../css/diy.css">
     <style>
-        /* 表格字体清晰度提升 */
         .layui-table th, .layui-table td {
             color: #333 !important;
         }
@@ -19,14 +18,10 @@
         .layui-table tbody tr:hover {
             background-color: #f8f8f8 !important;
         }
-        .layui-table-view .layui-table {
-            border: 1px solid #e6e6e6;
-        }
     </style>
 </head>
 <body>
 <div class="section1" style="padding: 20px;">
-    <!-- 搜索区 -->
     <div style="background:#f8f8f8; padding:15px; border-radius:8px; margin-bottom:15px;">
         <form class="layui-form layui-form-pane" lay-filter="searchForm">
             <div class="layui-form-item">
@@ -54,7 +49,6 @@
         </form>
     </div>
 
-    <!-- 操作按钮区 -->
     <div style="margin-bottom:15px;">
         <button type="button" class="layui-btn layui-btn-danger" id="batchDelete">
             <i class="layui-icon layui-icon-delete"></i> 批量删除
@@ -64,10 +58,8 @@
         </a>
     </div>
 
-    <!-- 表格 -->
     <table class="layui-hide" id="international_student_management" lay-filter="international_student_management"></table>
 
-    <!-- 操作列模板 -->
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-xs" lay-event="detail">查看</button>
@@ -91,15 +83,13 @@
 
         const token = sessionStorage.getItem('token');
 
-        let where = { like: 0, size: 10 };
-
+        // 强制加载所有数据（不分页，不传任何参数）
         table.render({
             elem: '#international_student_management'
             , url: BaseUrl + '/api/international_student_management/get_list'
             , headers: { 'x-auth-token': token }
-            , page: true
-            , limit: 10
-            , limits: [10, 20, 30, 50]
+            , page: false  // 关闭分页，显示所有数据
+            , limit: 1000  // 设置大 limit，强制拿所有
             , cols: [[
                 { type: 'checkbox', fixed: 'left' }
                 , { field: 'student_name', title: '学生姓名', width: 150, sort: true }
@@ -114,60 +104,50 @@
                 , { fixed: 'right', title: '操作', toolbar: '#toolbarDemo', width: 200 }
             ]]
             , parseData: function(res) {
-                // 你的后端成功返回 code: 200
+                // 强制兼容各种返回结构
+                let list = [];
+                let count = 0;
+
                 if (res.code === 200 && res.result) {
-                    return {
-                        code: 0, // Layui table 要求 code: 0 表示成功
-                        msg: '',
-                        count: res.result.count || 0,
-                        data: res.result.list || []
-                    };
+                    list = res.result.list || res.result || [];
+                    count = res.result.count || list.length;
+                } else if (Array.isArray(res.result)) {
+                    list = res.result;
+                    count = list.length;
+                } else if (Array.isArray(res)) {
+                    list = res;
+                    count = res.length;
                 }
-                // 失败或异常
+
                 return {
                     code: 0,
-                    msg: res.error?.message || '数据加载失败',
-                    count: 0,
-                    data: []
+                    msg: '',
+                    count: count,
+                    data: list
                 };
             }
-            , where: where
             , done: function(res, curr, count) {
-                // 返回列表后强制刷新
-                if (location.search.includes('refresh')) {
-                    table.reload('international_student_management');
-                }
-                // 空数据提示
                 if (count === 0) {
                     $('.layui-table-body').html('<div style="text-align:center;padding:50px;color:#999;font-size:16px;">暂无数据</div>');
                 }
             }
         });
 
-        // 搜索
+        // 搜索（简单本地搜索）
         $('#inquire').on('click', function(){
             const formData = form.val('searchForm');
-            where = { ...where, ...formData, like: 1 };
-            table.reload('international_student_management', { where });
+            table.reload('international_student_management', {
+                where: formData
+            });
         });
 
         // 重置
         $('#reset').on('click', function(){
             form.val('searchForm', {});
-            where = { like: 0, size: 10 };
-            table.reload('international_student_management', { where });
+            table.reload('international_student_management', { where: {} });
         });
 
-        // 批量删除（占位）
-        $('#batchDelete').on('click', function(){
-            const checkStatus = table.checkStatus('international_student_management');
-            if (checkStatus.data.length === 0) return layer.msg('请先选择数据');
-            layer.confirm(`确定删除 ${checkStatus.data.length} 条记录？`, () => {
-                layer.msg('批量删除功能待实现');
-            });
-        });
-
-        // 操作列事件
+        // 操作事件保持不变
         table.on('tool(international_student_management)', function(obj){
             const data = obj.data;
             if(obj.event === 'detail' || obj.event === 'edit'){
