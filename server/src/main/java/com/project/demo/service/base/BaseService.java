@@ -63,9 +63,16 @@ public class BaseService<E>{
         }
         sql.deleteCharAt(sql.length() - 1);
         sql.append(")");
-        log.info("[{}] - 插入操作：{}",table,sql);
-        Query query = runCountSql(sql.toString());
-        query.executeUpdate();
+
+        // 修复：添加异常捕获，返回具体错误消息
+        try {
+            log.info("[{}] - 插入操作：{}",table,sql);
+            Query query = runCountSql(sql.toString());
+            query.executeUpdate();
+        } catch (Exception e) {
+            log.error("[{}] - 插入失败：{}", table, e.getMessage(), e);
+            throw new RuntimeException("数据插入失败: " + e.getMessage()); // 前端会收到这个消息
+        }
     }
 
     @Transactional
@@ -86,6 +93,7 @@ public class BaseService<E>{
         log.info("[{}] - 更新操作：{}",table,sql);
         Query query1 = runCountSql(sql.toString());
         query1.executeUpdate();
+
     }
 
     public Map<String,Object> selectToPage(Map<String,String> query,Map<String,String> config){
@@ -225,6 +233,15 @@ public class BaseService<E>{
     public String toWhereSql(Map<String,String> query, Boolean like,String sqlwhere) {
         if (query.size() > 0) {
             try {
+                // 修复：排除分页和配置参数，避免被当搜索字段
+                query.remove("page");
+                query.remove("size");
+                query.remove("limit");
+                query.remove("like");
+                query.remove("orderby");
+                query.remove("field");
+                query.remove("group_by");
+                query.remove("sqlwhere");
                 StringBuilder sql = new StringBuilder(" WHERE ");
                 for (Map.Entry<String, String> entry : query.entrySet()) {
                     String decodedValue = URLDecoder.decode(entry.getValue(), "UTF-8");
