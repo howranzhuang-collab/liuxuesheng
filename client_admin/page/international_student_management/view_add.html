@@ -82,11 +82,13 @@
         const token = sessionStorage.getItem('token');
         const id = location.search.substring(1) || '';
 
+        // 日期选择器
         laydate.render({
             elem: '#study_time',
             format: 'yyyy-MM-dd'
         });
 
+        // 编辑时加载数据
         if (id) {
             axios.get(BaseUrl + '/api/international_student_management/get_obj', {
                 params: { international_student_management_id: id },
@@ -107,10 +109,12 @@
             }).catch(() => layer.msg('加载数据失败'));
         }
 
+        // 提交表单
         form.on('submit(submitForm)', function(data){
             const loading = layer.load(1);
             const postData = data.field;
 
+            // 安全处理留学时间
             if (postData.study_time) {
                 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
                 if (datePattern.test(postData.study_time)) {
@@ -132,7 +136,10 @@
                 layer.close(loading);
                 if (res.data.result === 1) {
                     layer.msg('操作成功', {icon: 1});
-                    setTimeout(() => location.href = './table.html?refresh=' + new Date().getTime(), 1000);
+                    // 关键：返回列表并带 refresh 参数，触发表格刷新
+                    setTimeout(() => {
+                        location.href = './table.html?refresh=1';
+                    }, 1000);
                 } else {
                     layer.msg(res.data.error?.message || '操作失败');
                 }
