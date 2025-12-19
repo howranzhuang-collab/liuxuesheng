@@ -1,746 +1,149 @@
-<!-- 新增/Add -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>留学生信息</title>
     <link rel="stylesheet" href="../../layui/css/layui.css">
     <link rel="stylesheet" href="../../css/diy.css">
-    <script src="../../js/axios.min.js"></script>
-
-    <style>
-        img {
-            width: 200px;
-        }
-
-
-        
-    </style>
 </head>
-
 <body>
-<article class="sign_in">
-    <div class="warp">
-        <div class="layui-container">
-            <div class="layui-row">
-                <form class="layui-form" action="">
-                                                                                                                                                                                                            <div class="layui-form-item" id="student_name_box">
-                                            <label class="layui-form-label">学生姓名</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                                       placeholder="请输入学生姓名"
-                                                       class="layui-input" id="student_name">
-                                            </div>
-                                        </div>
-                                                                                                                                                                                                                        <div class="layui-form-item" id="student_gender_box">
-                                        <label class="layui-form-label">学生性别</label>
-                                        <div class="layui-input-block">
-                                            <select name="interest" lay-filter="student_gender" id="student_gender">
-                                                <option value=""></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                                                                                                                                                                                                            <div class="layui-form-item" id="student_nationality_box">
-                                            <label class="layui-form-label">学生国籍</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                                       placeholder="请输入学生国籍"
-                                                       class="layui-input" id="student_nationality">
-                                            </div>
-                                        </div>
-                                                                                                                                                                                                                                                                <div class="layui-form-item" id="overseas_universities_box">
-                                            <label class="layui-form-label">留学院校</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                                       placeholder="请输入留学院校"
-                                                       class="layui-input" id="overseas_universities">
-                                            </div>
-                                        </div>
-                                                                                                                                                                                                                                                                <div class="layui-form-item" id="major_name_box">
-                                            <label class="layui-form-label">专业名称</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                                       placeholder="请输入专业名称"
-                                                       class="layui-input" id="major_name">
-                                            </div>
-                                        </div>
-                                                                                                                                                                                                                        <div class="layui-form-item" id="study_time_box">
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label">留学时间</label>
-                                            <div class="layui-input-inline">
-                                                <input type="text" class="layui-input" id="study_time"
-                                                       placeholder="yyyy-MM-dd">
-                                            </div>
-                                        </div>
-                                    </div>
-                                                                                                                                                                                    <div class="layui-form-item layui-form-text" id="student_status_box">
-                                        <label class="layui-form-label">学生学籍</label>
-                                        <div class="layui-input-block">
-                                            <textarea placeholder="请输入学生学籍" class="layui-textarea"
-                                                      id="student_status"></textarea>
-                                        </div>
-                                    </div>
-                                                                                                            
-                                                
-                        
-                        
-                        
-                        
-                                                            </form>
-                <div class="layui-btn-container">
-                    <a href="#" type="button" class="layui-btn layui-btn-normal login" id="submit" >确认/Confirm</a>
-                    <a href="./table.html" target="main_self_frame" type="button"
-                       class="layui-btn layui-btn-normal login">取消/Cancel</a>
-                </div>
+<div class="warp" style="padding:20px;">
+    <form class="layui-form" lay-filter="studentForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">学生姓名<span style="color:red;">*</span></label>
+            <div class="layui-input-block">
+                <input type="text" name="student_name" required lay-verify="required" placeholder="请输入学生姓名" class="layui-input">
             </div>
         </div>
-    </div>
-</article>
-</body>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学生性别</label>
+            <div class="layui-input-block">
+                <select name="student_gender">
+                    <option value="">请选择</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学生国籍</label>
+            <div class="layui-input-block">
+                <input type="text" name="student_nationality" placeholder="请输入学生国籍" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">留学院校</label>
+            <div class="layui-input-block">
+                <input type="text" name="overseas_universities" placeholder="请输入留学院校" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">专业名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="major_name" placeholder="请输入专业名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">留学时间</label>
+            <div class="layui-input-block">
+                <input type="text" name="study_time" id="study_time" class="layui-input" placeholder="请选择留学时间">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">学生学籍</label>
+            <div class="layui-input-block">
+                <textarea name="student_status" placeholder="请输入学生学籍信息" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="submitForm">提交</button>
+                <button type="button" class="layui-btn layui-btn-primary" onclick="history.back()">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <script src="../../layui/layui.js"></script>
+<script src="../../js/axios.min.js"></script>
 <script src="../../js/base.js"></script>
-<script src="../../js/index.js"></script>
 <script>
-    var BaseUrl = baseUrl()
-    let international_student_management_id = location.search.substring(1)
-    layui.use(['upload', 'element', 'layer', 'laydate', 'layedit'], function () {
-        var $ = layui.jquery
-                , upload = layui.upload
-                , element = layui.element
-                , layer = layui.layer
-                , laydate = layui.laydate
-                , layedit = layui.layedit
-                , form = layui.form;
+    const BaseUrl = baseUrl();
+    axios.defaults.baseURL = BaseUrl;
 
-        let url
+    layui.use(['form', 'laydate', 'layer'], function(){
+        const form = layui.form;
+        const laydate = layui.laydate;
+        const layer = layui.layer;
 
-        let token = sessionStorage.token || null
-        let personInfo = JSON.parse(sessionStorage.personInfo)
-        let user_group = personInfo.user_group
-        let use_id = personInfo.user_id
+        const token = sessionStorage.getItem('token');
+        const id = location.search.substring(1) || '';
 
+        laydate.render({
+            elem: '#study_time',
+            format: 'yyyy-MM-dd'
+        });
 
-        function  $get_stamp() {
-            return new Date().getTime();
+        if (id) {
+            axios.get(BaseUrl + '/api/international_student_management/get_obj', {
+                params: { international_student_management_id: id },
+                headers: { 'x-auth-token': token }
+            }).then(res => {
+                if (res.data.result?.obj) {
+                    const data = res.data.result.obj;
+                    form.val('studentForm', {
+                        student_name: data.student_name || '',
+                        student_gender: data.student_gender || '',
+                        student_nationality: data.student_nationality || '',
+                        overseas_universities: data.overseas_universities || '',
+                        major_name: data.major_name || '',
+                        study_time: data.study_time ? layui.util.toDateString(data.study_time, 'yyyy-MM-dd') : '',
+                        student_status: data.student_status || ''
+                    });
+                }
+            }).catch(() => layer.msg('加载数据失败'));
         }
 
-        function  $get_rand(len) {
-            var rand = Math.random();
-            return Math.ceil(rand * 10 ** len);
-        }
+        form.on('submit(submitForm)', function(data){
+            const loading = layer.load(1);
+            const postData = data.field;
 
-        
-            // 权限判断
-            /**
-             * 获取路径对应操作权限 鉴权
-             * @param {String} action 操作名
-             */
-            function $check_action(path1, action = "get") {
-                var o = $get_power(path1);
-                if (o && o[action] != 0 && o[action] != false) {
-                    return true;
+            if (postData.study_time) {
+                const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+                if (datePattern.test(postData.study_time)) {
+                    postData.study_time = postData.study_time + ' 00:00:00';
+                } else {
+                    postData.study_time = null;
                 }
-                return false;
+            } else {
+                postData.study_time = null;
             }
 
-            /**
-             * 是否有显示或操作字段的权限
-             * @param {String} action 操作名
-             * @param {String} field 查询的字段
-             */
-            function $check_field(action, field, path1) {
-                var o = $get_power(path1);
-                var auth;
-                if (o && o[action] != 0 && o[action] != false) {
-                    auth = o["field_" + action];
+            const url = id
+                ? BaseUrl + '/api/international_student_management/set?international_student_management_id=' + id
+                : BaseUrl + '/api/international_student_management/add';
+
+            axios.post(url, postData, {
+                headers: { 'x-auth-token': token, 'Content-Type': 'application/json' }
+            }).then(res => {
+                layer.close(loading);
+                if (res.data.result === 1) {
+                    layer.msg('操作成功', {icon: 1});
+                    setTimeout(() => location.href = './table.html?refresh=' + new Date().getTime(), 1000);
+                } else {
+                    layer.msg(res.data.error?.message || '操作失败');
                 }
-                if (auth) {
-                    return auth.indexOf(field) !== -1;
-                }
-                return false;
-            }
+            }).catch(() => {
+                layer.close(loading);
+                layer.msg('网络错误');
+            });
 
-            /**
-             * 获取权限
-             * @param {String} path 路由路径
-             */
-            function $get_power(path) {
-                var list_data = JSON.parse(sessionStorage.list_data)
-                var list = list_data;
-                var obj;
-                for (var i = 0; i < list.length; i++) {
-                    var o = list[i];
-                    if (o.path === path) {
-                        obj = o;
-                        break;
-                    }
-                }
-                return obj;
-            }
-
-        let submit = document.querySelector('#submit')
-        // 提交按钮校验权限
-        // if (   user_group == "管理员" ||$check_action('/international_student_management/view', 'add') || $check_action('/international_student_management/view', 'set')) {
-        //    submit.style.display = "block"
-        // }
-        // style="display: none"
-
-        
-            let field = "international_student_management_id";
-            let url_add = "international_student_management";
-            let url_set = "international_student_management";
-            let url_get_obj = "international_student_management";
-            let url_upload = "international_student_management"
-            let query = {
-                "international_student_management_id": 0,
-            }
-
-            let form_data2 = {
-                                                        "student_name":  '', // 学生姓名
-                                                                            "student_gender":  '', // 学生性别
-                                                                            "student_nationality":  '', // 学生国籍
-                                                                            "overseas_universities":  '', // 留学院校
-                                                                            "major_name":  '', // 专业名称
-                                                                            "study_time":  '', // 留学时间
-                                                                            "student_status":  '', // 学生学籍
-                                                                                                                    "international_student_management_id": 0, // ID
-                                                                                            }
-
-            layui.layedit.set({
-      uploadImage: {
-        url: BaseUrl + '/api/international_student_management/upload?' //接口url
-        , type: 'post' //默认post
-      }
+            return false;
+        });
     });
-
-
-            var path1
-
-            function getpath() {
-                var list_data = JSON.parse(sessionStorage.list_data)
-                for (var i = 0; i < list_data.length; i++) {
-                    var o = list_data[i];
-                    if (o.path === "/international_student_management/table") {
-                        path1 = o.path
-                            $get_power(o.path)
-                    }
-                }
-            }
-
-            getpath()
-
-            /**
-             * 注册时是否有显示或操作字段的权限
-             * @param {String} action 操作名
-             * @param {String} field 查询的字段
-             * @param {String} path 路径
-             */
-            function $check_register_field(action, field, path1) {
-                var o = $get_power(path1);
-                var auth;
-                if (o && o[action] != 0 && o[action] != false) {
-                    auth = o["field_" + action];
-                }
-                if (auth) {
-                    return auth.indexOf(field) !== -1;
-                }
-                return false;
-            }
-
-            /**
-             * 是否有显示或操作字段的权限
-             * @param {String} action 操作名
-             * @param {String} field 查询的字段
-             */
-            function $check_field(action, field) {
-                var o = $get_power("/international_student_management/view");
-                var auth;
-                if (o && o[action] != 0 && o[action] != false) {
-                    auth = o["field_" + action];
-                }
-                if (auth) {
-                    return auth.indexOf(field) !== -1;
-                }
-                return false;
-            }
-
-            /**
-             * 获取路径对应操作权限 鉴权
-             * @param {String} action 操作名
-             */
-            function $check_exam(path1, action = "get") {
-                var o = $get_power(path1);
-                if (o) {
-                    var option = JSON.parse(o.option);
-                    if (option[action])
-                        return true
-                }
-                return false;
-            }
-
-            /**
-             * 是否有审核字段的权限
-             */
-            function $check_examine() {
-                var url = window.location.href;
-                var url_ = url.split("/")
-                var pg_url = url_[url_.length - 2]
-                let path = "/"+ pg_url + "/table"
-                var o = $get_power(path);
-                if (o){
-                    var option = JSON.parse(o.option);
-                    if (option.examine)
-                        return true
-                }
-                return false;
-            }
-
-                            if (user_group === '管理员') {
-                    $("#student_name_box").show()
-                } else {
-                    if ($check_field('add', 'student_name')){
-                        $("#student_name_box").show()
-                    }else {
-                        $("#student_name_box").hide()
-                    }
-                }
-                            if (user_group === '管理员') {
-                    $("#student_gender_box").show()
-                } else {
-                    if ($check_field('add', 'student_gender')){
-                        $("#student_gender_box").show()
-                    }else {
-                        $("#student_gender_box").hide()
-                    }
-                }
-                            if (user_group === '管理员') {
-                    $("#student_nationality_box").show()
-                } else {
-                    if ($check_field('add', 'student_nationality')){
-                        $("#student_nationality_box").show()
-                    }else {
-                        $("#student_nationality_box").hide()
-                    }
-                }
-                            if (user_group === '管理员') {
-                    $("#overseas_universities_box").show()
-                } else {
-                    if ($check_field('add', 'overseas_universities')){
-                        $("#overseas_universities_box").show()
-                    }else {
-                        $("#overseas_universities_box").hide()
-                    }
-                }
-                            if (user_group === '管理员') {
-                    $("#major_name_box").show()
-                } else {
-                    if ($check_field('add', 'major_name')){
-                        $("#major_name_box").show()
-                    }else {
-                        $("#major_name_box").hide()
-                    }
-                }
-                            if (user_group === '管理员') {
-                    $("#study_time_box").show()
-                } else {
-                    if ($check_field('add', 'study_time')){
-                        $("#study_time_box").show()
-                    }else {
-                        $("#study_time_box").hide()
-                    }
-                }
-                            if (user_group === '管理员') {
-                    $("#student_status_box").show()
-                } else {
-                    if ($check_field('add', 'student_status')){
-                        $("#student_status_box").show()
-                    }else {
-                        $("#student_status_box").hide()
-                    }
-                }
-            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                            
-                                                // 学生性别选项列表
-                    let student_gender_data = ['男','女'];
-                
-                            
-                            
-                            
-                            
-                            
-            
-                                                                                                                                                                                                                                                        
-                                                            
-                                                            
-                                                            
-                                                            
-                                                                                // 日期选择
-                    laydate.render({
-                        elem: '#study_time'
-                        , format: 'yyyy-MM-dd'
-                        , done: function (value) {
-                            form_data2.study_time = value + ' 00:00:00'
-                        }
-                    });
-                
-                                                            
-                                            
-            
-                                            
-                                                                                async function student_gender() {
-                        var student_gender = document.querySelector("#student_gender")
-                        var op1 = document.createElement("option");
-                        op1.value = '0'
-                            student_gender.appendChild(op1)
-                        // 收集数据 长度
-                        var count
-                        // 收集数据 数组
-                        var arr = []
-                        count = student_gender_data.length
-                        arr = student_gender_data
-                        for (var i = 0; i < arr.length; i++) {
-                            var op = document.createElement("option");
-                            // 给节点赋值
-                            op.innerHTML = arr[i]
-                            op.value = arr[i]
-                            // 新增/Add节点
-                            student_gender.appendChild(op)
-                            if (form_data2.student_gender==arr[i].student_gender){
-                                op.selected = true
-                            }
-                            layui.form.render("select");
-                        }
-                    }
-
-                    layui.form.on('select(student_gender)', function (data) {
-                        form_data2.student_gender = data.elem[data.elem.selectedIndex].text;
-                    })
-                        student_gender()
-                
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-                                                    
-                                                //文本
-                    let student_name = document.querySelector("#student_name")
-                        student_name.onkeyup = function (event) {
-                        form_data2.student_name = event.target.value
-                    }
-                    //文本
-                                                                                                                                                                                                                            //文本
-                    let student_nationality = document.querySelector("#student_nationality")
-                        student_nationality.onkeyup = function (event) {
-                        form_data2.student_nationality = event.target.value
-                    }
-                    //文本
-                                                                                                                                //文本
-                    let overseas_universities = document.querySelector("#overseas_universities")
-                        overseas_universities.onkeyup = function (event) {
-                        form_data2.overseas_universities = event.target.value
-                    }
-                    //文本
-                                                                                                                                //文本
-                    let major_name = document.querySelector("#major_name")
-                        major_name.onkeyup = function (event) {
-                        form_data2.major_name = event.target.value
-                    }
-                    //文本
-                                                                                                                                                                                                                                                                            //多文本
-                    let student_status = document.querySelector("#student_status")
-                    //多文本
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    var data = sessionStorage.data || ''
-            if (data !== '') {
-                var data2 = JSON.parse(data)
-                Object.keys(form_data2).forEach(key => {
-                    Object.keys(data2).forEach(dbKey => {
-                        if (key === dbKey) {
-                            if (key!=='examine_state' && key!=='examine_reply'){
-                                $('#' + key).val(data2[key])
-                                form_data2[key] = data2[key]
-                                $('#' + key).attr('disabled', 'disabled')
-                                                                    
-                                                                                                        for (let key in form_data2) {
-                                            if (key == 'student_gender') {
-                                                let alls = document.querySelector('#student_gender').querySelectorAll('option')
-                                                let test = form_data2[key]
-                                            for (let i = 0; i < alls.length; i++) {
-                                                if (alls[i].innerHTML == test) {
-                                                    alls[i].selected = true
-                                                    form_data2.student_gender = alls[i].text
-                                                    layui.form.render("select");
-                                                }
-                                            }
-                                        }
-                                    }
-                                
-                                                                
-                                                                
-                                                                
-                                                                
-                                                                
-                                                        }
-                        }
-                    })
-                })
-                sessionStorage.removeItem("data");
-            }
-                                                                                                                                                                                                                            
-
-            if (international_student_management_id !== '') {
-                async function axios_get_3() {
-                    const {data: rese} = await axios.get(BaseUrl + '/api/international_student_management/get_obj', {
-                        params: {
-                                international_student_management_id: international_student_management_id
-                        }, headers: {
-                            'x-auth-token': token
-                        }
-                    })
-
-                    let data = rese.result.obj
-                    Object.keys(form_data2).forEach((key) => {
-                        form_data2[key] = data[key];
-                        $("#"+key).val(form_data2[key])
-                    });
-
-                    
-
-                                            
-                                                                        for (let key in data) {
-                                if (key == 'student_gender') {
-                                    let alls = document.querySelector('#student_gender').querySelectorAll('option')
-                                    let test = data[key]
-                                    for (let i = 0; i < alls.length; i++) {
-                                        if (alls[i].innerHTML == test) {
-                                            alls[i].selected = true
-                                            form_data2.student_gender = alls[i].text
-                                            layui.form.render("select");
-                                        }
-                                    }
-                                }
-                            }
-                        
-                                            
-                                            
-                                            
-                                            
-                                            
-                                                                                   if (user_group === '管理员') {
-                            $("#student_name_box").show()
-                        } else {
-                            if ($check_field('set', 'student_name') || $check_field('get', 'student_name')){
-                                $("#student_name_box").show()
-                            }else {
-                                $("#student_name_box").hide()
-                            }
-                        }
-                                            if (user_group === '管理员') {
-                            $("#student_gender_box").show()
-                        } else {
-                            if ($check_field('set', 'student_gender') || $check_field('get', 'student_gender')){
-                                $("#student_gender_box").show()
-                            }else {
-                                $("#student_gender_box").hide()
-                            }
-                        }
-                                            if (user_group === '管理员') {
-                            $("#student_nationality_box").show()
-                        } else {
-                            if ($check_field('set', 'student_nationality') || $check_field('get', 'student_nationality')){
-                                $("#student_nationality_box").show()
-                            }else {
-                                $("#student_nationality_box").hide()
-                            }
-                        }
-                                            if (user_group === '管理员') {
-                            $("#overseas_universities_box").show()
-                        } else {
-                            if ($check_field('set', 'overseas_universities') || $check_field('get', 'overseas_universities')){
-                                $("#overseas_universities_box").show()
-                            }else {
-                                $("#overseas_universities_box").hide()
-                            }
-                        }
-                                            if (user_group === '管理员') {
-                            $("#major_name_box").show()
-                        } else {
-                            if ($check_field('set', 'major_name') || $check_field('get', 'major_name')){
-                                $("#major_name_box").show()
-                            }else {
-                                $("#major_name_box").hide()
-                            }
-                        }
-                                            if (user_group === '管理员') {
-                            $("#study_time_box").show()
-                        } else {
-                            if ($check_field('set', 'study_time') || $check_field('get', 'study_time')){
-                                $("#study_time_box").show()
-                            }else {
-                                $("#study_time_box").hide()
-                            }
-                        }
-                                            if (user_group === '管理员') {
-                            $("#student_status_box").show()
-                        } else {
-                            if ($check_field('set', 'student_status') || $check_field('get', 'student_status')){
-                                $("#student_status_box").show()
-                            }else {
-                                $("#student_status_box").hide()
-                            }
-                        }
-                    
-                    // Array.prototype.slice.call(document.getElementsByTagName('input')).map(i => i.disabled = true)
-                    // Array.prototype.slice.call(document.getElementsByTagName('select')).map(i => i.disabled = true)
-                    // Array.prototype.slice.call(document.getElementsByTagName('textarea')).map(i => i.disabled = true)
-                                                                        //文本
-                                student_name.value = form_data2.student_name
-                            //文本
-                                                                        
-                                                    if (user_group === '管理员' || (form_data2['international_student_management_id'] && $check_field('set', 'student_name')) || (!form_data2['international_student_management_id'] && $check_field('add', 'student_name'))) {
-                            }else {
-                                $("#student_name").attr("disabled", true);
-                                $("#student_name > input[name='file']").attr('disabled', true);
-                            }
-                                                                                                                    
-                                                    if (user_group === '管理员' || (form_data2['international_student_management_id'] && $check_field('set', 'student_gender')) || (!form_data2['international_student_management_id'] && $check_field('add', 'student_gender'))) {
-                            }else {
-                                $("#student_gender").attr("disabled", true);
-                                $("#student_gender > input[name='file']").attr('disabled', true);
-                            }
-                                                                                                //文本
-                                student_nationality.value = form_data2.student_nationality
-                            //文本
-                                                                        
-                                                    if (user_group === '管理员' || (form_data2['international_student_management_id'] && $check_field('set', 'student_nationality')) || (!form_data2['international_student_management_id'] && $check_field('add', 'student_nationality'))) {
-                            }else {
-                                $("#student_nationality").attr("disabled", true);
-                                $("#student_nationality > input[name='file']").attr('disabled', true);
-                            }
-                                                                                                //文本
-                                overseas_universities.value = form_data2.overseas_universities
-                            //文本
-                                                                        
-                                                    if (user_group === '管理员' || (form_data2['international_student_management_id'] && $check_field('set', 'overseas_universities')) || (!form_data2['international_student_management_id'] && $check_field('add', 'overseas_universities'))) {
-                            }else {
-                                $("#overseas_universities").attr("disabled", true);
-                                $("#overseas_universities > input[name='file']").attr('disabled', true);
-                            }
-                                                                                                //文本
-                                major_name.value = form_data2.major_name
-                            //文本
-                                                                        
-                                                    if (user_group === '管理员' || (form_data2['international_student_management_id'] && $check_field('set', 'major_name')) || (!form_data2['international_student_management_id'] && $check_field('add', 'major_name'))) {
-                            }else {
-                                $("#major_name").attr("disabled", true);
-                                $("#major_name > input[name='file']").attr('disabled', true);
-                            }
-                                                                                                                    
-                                                    if (user_group === '管理员' || (form_data2['international_student_management_id'] && $check_field('set', 'study_time')) || (!form_data2['international_student_management_id'] && $check_field('add', 'study_time'))) {
-                            }else {
-                                $("#study_time").attr("disabled", true);
-                                $("#study_time > input[name='file']").attr('disabled', true);
-                            }
-                                                                                                                                                //多文本
-                                student_status.value = form_data2.student_status
-                            //多文本
-                        
-                                                    if (user_group === '管理员' || (form_data2['international_student_management_id'] && $check_field('set', 'student_status')) || (!form_data2['international_student_management_id'] && $check_field('add', 'student_status'))) {
-                            }else {
-                                $("#student_status").attr("disabled", true);
-                                $("#student_status > input[name='file']").attr('disabled', true);
-                            }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    study_time.value = layui.util.toDateString(form_data2.study_time, "yyyy-MM-dd")
-                                                                                                                                                                                            layui.form.render("select");
-
-                }
-                axios_get_3()
-            }
-
-
-            
-            
-            submit.onclick = async function () {
-                try {
-                                                                                                                                                    //文本
-                            form_data2.student_name = student_name.value
-                            //文本
-                                                                                                                                                                                                                                                                                                //文本
-                            form_data2.student_nationality = student_nationality.value
-                            //文本
-                                                                                                                                                                        //文本
-                            form_data2.overseas_universities = overseas_universities.value
-                            //文本
-                                                                                                                                                                        //文本
-                            form_data2.major_name = major_name.value
-                            //文本
-                                                                                                                            form_data2.study_time = layui.util.toDateString(form_data2.study_time, "yyyy-MM-dd")
-                                                                                                                                                                                                                                //多文本
-                            form_data2.student_status = student_status.value
-                            //多文本
-                                                                } catch (err) {
-                    console.log(err)
-                }
-                                                                
-                                                
-                let customize_field = []
-                                                            customize_field.push({"field_name": "学生姓名", "field_value": form_data2.student_name});
-                                                                                customize_field.push({"field_name": "学生性别", "field_value": form_data2.student_gender});
-                                                                                customize_field.push({"field_name": "学生国籍", "field_value": form_data2.student_nationality});
-                                                                                customize_field.push({"field_name": "留学院校", "field_value": form_data2.overseas_universities});
-                                                                                customize_field.push({"field_name": "专业名称", "field_value": form_data2.major_name});
-                                                                                customize_field.push({
-                            "field_name": "留学时间",
-                            "field_value": form_data2.study_time,
-                            "type": "date"
-                        });
-                                                                                customize_field.push({"field_name": "学生学籍", "field_value": form_data2.student_status});
-                                    
-                
-                if (international_student_management_id == '') {
-                                        console.log("新增/Add")
-                    const {data: res} = await axios.post(BaseUrl + '/api/international_student_management/add?',
-                            form_data2, {
-                                headers: {
-                                    'x-auth-token': token,
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                                        if (res.result == 1) {
-                        layer.msg('确认/Confirm完毕');
-                        setTimeout(function () {
-                            window.location.replace("./table.html");
-                        }, 1000)
-                    }else {
-              layer.msg(res.error.message);
-            }
-                                    } else {
-                                        console.log("详情/Details")
-                    
-                    const {data: res} = await axios.post(BaseUrl + '/api/international_student_management/set?international_student_management_id=' + international_student_management_id,
-                            form_data2, {
-                                headers: {
-                                    'x-auth-token': token,
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                    if (res.result == 1) {
-                        layer.msg('确认/Confirm完毕');
-                        setTimeout(function () {
-                            window.location.replace("./table.html");
-                        }, 1000)
-                    }else {
-              layer.msg(res.error.message);
-            }
-                }
-            }
-        
-    })
-    ;
 </script>
-
+</body>
 </html>
