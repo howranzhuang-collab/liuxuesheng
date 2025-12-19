@@ -1,436 +1,160 @@
-<!-- 框架页面 -->
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-    <meta http-equiv="Pragma" content="no-cache"/>
-    <meta http-equiv="Expires" content="0"/>
     <title>留学生报名网站管理系统</title>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../css/diy.css">
+    <style>
+        /* 可选：美化顶部用户名 */
+        .header-user {
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            color: #fff;
+        }
+    </style>
 </head>
-
-<body>
+<body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
+    <!-- 顶部 -->
     <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black" id="echars">
-            <a href="./Home.html" target="main_self_frame" style="color: white;">
-                <i class="layui-icon layui-icon-home"></i>
-                主页
+        <div class="layui-logo layui-bg-black">
+            <a href="./Home.html" target="main_self_frame" style="color: #fff;">
+                <i class="layui-icon layui-icon-home"></i> 主页
             </a>
         </div>
-        <!-- 头部区域（可配合layui 已有的水平导航） -->
+
         <ul class="layui-nav layui-layout-left">
-            <!-- 移动端显示 -->
-            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-                <i class="layui-icon layui-icon-spread-left"></i>
-            </li>
-            <li>
-                <h1>欢迎使用留学生报名网站管理系统</h1>
+            <li class="layui-nav-item layui-hide-xs">
+                <h2 style="color:#fff;margin:0;padding-left:20px;">留学生报名网站管理系统</h2>
             </li>
         </ul>
 
-        
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;" id="websiteHomePage">网站首页</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <span id="username">加载中...</span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="./info.html" target="main_self_frame">个人资料</a></dd>
+                    <dd><a href="./change_password.html" target="main_self_frame">修改密码</a></dd>
+                    <dd><a href="javascript:;" id="logout">退出登录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
 
-
-                    <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-hide layui-show-md-inline-block"
-                    style="float: left; margin-left: 50px;">
-                    <a id="websiteHomePage" href="javascript:void(0)">网站首页</a>
-            </ul>
-            </div>
-
+    <!-- 左侧菜单 -->
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test2" id="uls">
-
-                <li class="layui-nav-item" id="userInfo" style="display: block;">
-                    <a href="javascript:;">个人资料/Personal Data</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="./info.html" target="main_self_frame">个人信息</a></dd>
-                        <dd><a href="./change_password.html" target="main_self_frame">修改密码</a></dd>
-                    </dl>
-                </li>
-
-                                    <li class="layui-nav-item" id="site" style="display: none;">
-                        <a class="" href="javascript:;">公共管理/Public Manage</a>
-                        <dl class="layui-nav-child">
-                                                            <dd><a href="./slides/table.html" target="main_self_frame">轮播图</a></dd>
-                                                                                        <dd><a href="./notice/table.html" target="main_self_frame">公告信息</a></dd>
-                                                                                </dl>
-                    </li>
-                
-                <li class="layui-nav-item" id="userManagement" style="display: none;">
-                    <a href="javascript:;">用户管理/User Manage</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="./user/table.html" target="main_self_frame" id="user">管理员</a></dd>
-                                                                                    <dd style="display: none" id="student_users">
-                                    <a href="./student_users/table.html" target="main_self_frame">学生用户</a>
-                                </dd>
-                                                                                                                                                                                                                                                                                                                                                                                                </dl>
-                </li>
-
-
-                                                            <li class="layui-nav-item" id="content" style="display: none;">
-                            <a href="javascript:;">信息管理/Information Manage</a>
-                            <dl class="layui-nav-child">
-                                                                                                    <dd><a href="./article/table.html" target="main_self_frame" id="article"
-                                           style="display: none">文章</a>
-                                    </dd>
-                                    <dd><a href="./article_type/table.html" target="main_self_frame" id="article_type"
-                                           style="display: none">
-                                        文章分类</a></dd>
-                                                                                            </dl>
-                        </li>
-                                    
-                
+            <ul class="layui-nav layui-nav-tree" id="sideMenu">
+                <!-- 动态生成菜单将插入这里 -->
             </ul>
         </div>
     </div>
 
+    <!-- 主内容区 -->
     <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <iframe name="main_self_frame" frameborder="0" id="demoAdmin" src="./Home.html"
-                style="width: 100%; height: 100%; border-radius: 2px;"></iframe>
+        <iframe name="main_self_frame" id="mainFrame" src="./Home.html"
+                frameborder="0" style="width:100%;height:100%;"></iframe>
     </div>
 </div>
 
 <script src="../layui/layui.js"></script>
-<script src="../js/index.js"></script>
-<script src="../js/base.js"></script>
 <script src="../js/axios.min.js"></script>
+<script src="../js/base.js"></script>
 <script>
+    const BaseUrl = baseUrl();
+    axios.defaults.baseURL = BaseUrl;
 
-    var BaseUrl = baseUrl()
-    let personInfo, user_group;
-    try {
-        personInfo = JSON.parse(sessionStorage.personInfo)
-        user_group = personInfo.user_group || '普通用户'
-    } catch (error) {
-        console.error('解析用户信息出错:', error)
-        // 如果解析失败，提供默认值
-        personInfo = { user_group: '普通用户' }
-        user_group = '普通用户'
-    }
+    // 统一错误处理（可选保留）
+    axios.interceptors.response.use(
+        res => res.data,
+        err => console.error('API错误（已忽略）:', err)
+    );
 
-    console.log(personInfo)
-                let site = document.querySelector('#site')
+    layui.use(['element', 'layer'], function() {
+        const element = layui.element;
+        const layer = layui.layer;
 
-                                        let content = document.querySelector('#content')
-
-                        async function get_list() {
-            // 更多管理请求
-            let permissions = [];
-            let tables = [];
-            try {
-                let {data: ren} = await axios.get(BaseUrl + '/api/auth/get_list', {
-                    params: {
-                        user_group: personInfo.user_group
-                    }
-                });
-                permissions = ren.result?.list || [];
-                tables = permissions;
-                let list_data = JSON.stringify(permissions);
-                sessionStorage.setItem('list_data', list_data);
-            } catch (error) {
-                console.error('获取权限列表失败:', error);
-                // 显示友好的错误提示
-                if (error.response?.data?.error?.message?.includes('用户组不存在')) {
-                    layer.msg('当前用户组不存在，请联系管理员');
-                    // 提供默认的基础权限
-                    permissions = [];
-                    tables = [];
-                } else if (error.response?.status === 401) {
-                    layer.msg('登录已过期，请重新登录');
-                    setTimeout(() => {
-                        window.location.href = '../index.html';
-                    }, 1500);
-                    return;
-                } else {
-                    layer.msg('获取权限列表失败，将使用默认权限');
-                    permissions = [];
-                    tables = [];
-                }
-                // 使用空列表作为默认权限
-                sessionStorage.setItem('list_data', '[]');
-            }
-                    page_title('/article/table', 'article', tables)
-            page_title('/article_type/table', 'article_type', tables)
-        
-        function $get_power(path) {
-            try {
-                var list_data = JSON.parse(sessionStorage.list_data)
-                var list = list_data;
-                var obj;
-                for (var i = 0; i < list.length; i++) {
-                    var o = list[i];
-                    if (o.path === path) {
-                        obj = o;
-                        break;
-                    }
-                }
-                return obj;
-            } catch (error) {
-                console.error('解析权限数据出错:', error)
-                return null;
-            }
+        let personInfo = {};
+        try {
+            personInfo = JSON.parse(sessionStorage.getItem('personInfo') || '{}');
+        } catch (e) {
+            location.href = '../index.html';
+            return;
         }
 
-        /**
-         * 用户组是否有这个权限
-         * @param {Array} user_group 权限组
-         */
-        function $check_group(user_group) {
-            var list = tables;
-            var bl = false;
-            for (var i = 0; i < user_group.length; i++) {
-                bl = $check_action(user_group[i]);
-                if (bl == true) {
-                    break;
-                }
-            }
-            return bl;
-        }
+        // 顶部用户名
+        document.getElementById('username').textContent = personInfo.username || 'admin';
 
+        const menu = document.getElementById('sideMenu');
 
-        function $check_action(path1, action = "get") {
-            var o = $get_power(path1);
-            if (o && o[action] != 0 && o[action] != false) {
-                return true;
-            }
-            return false;
-        }
+        // 个人资料（始终显示）
+        menu.innerHTML += `
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;"><i class="layui-icon layui-icon-username"></i> 个人中心</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="./info.html" target="main_self_frame">个人信息</a></dd>
+                    <dd><a href="./change_password.html" target="main_self_frame">修改密码</a></dd>
+                </dl>
+            </li>
+        `;
 
-        var lt = [];
-        for (var i = 0; i < tables.length; i++) {
-            var o = tables[i];
-            if (o.path.indexOf("/table") !== -1) {
-                let list = ["exam", "article", "article_type", "comment", "notice"];
-                list.push("student_users");
-                // 确保管理员模块不被排除
-                if (list.indexOf(o.table_name) === -1) {
-                    if ($check_action(o.path)) {
-                        lt.push(o);
-                    }
-                }
-            }
-        }
-        
-        // 手动添加管理员所需的模块，确保它们显示在菜单中
-        var adminModules = [
-            { table_name: "application_guide", path: "/application_guide/table", page_title: "申请指南管理" },
-            { table_name: "professional_information", path: "/professional_information/table", page_title: "专业信息管理" },
-            { table_name: "application_for_studying_abroad", path: "/application_for_studying_abroad/table", page_title: "留学申报管理" },
-            { table_name: "tuition_payment", path: "/tuition_payment/table", page_title: "学费缴纳管理" },
-            { table_name: "international_student_management", path: "/international_student_management/table", page_title: "留学生管理" }
+        // === 所有管理模块（分组更清晰）===
+        const modules = [
+            // 公共管理
+            { icon: 'layui-icon-carousel', title: '轮播图管理', path: './slides/table.html' },
+            { icon: 'layui-icon-speaker', title: '公告信息管理', path: './notice/table.html' },
+
+            // 用户管理
+            { icon: 'layui-icon-user', title: '管理员管理', path: './user/table.html' },
+            { icon: 'layui-icon-group', title: '学生用户管理', path: './student_users/table.html' },
+
+            // 内容管理
+            { icon: 'layui-icon-note', title: '文章管理', path: './article/table.html' },
+            { icon: 'layui-icon-tabs', title: '文章分类管理', path: './article_type/table.html' },
+
+            // 留学生核心业务
+            { icon: 'layui-icon-read', title: '申请指南管理', path: './application_guide/table.html' },
+            { icon: 'layui-icon-console', title: '专业信息管理', path: './professional_information/table.html' },
+            { icon: 'layui-icon-form', title: '留学申报管理', path: './application_for_studying_abroad/table.html' },
+            { icon: 'layui-icon-dollar', title: '学费缴纳管理', path: './tuition_payment/table.html' },
+            { icon: 'layui-icon-friends', title: '留学生管理', path: './international_student_management/table.html' }
         ];
-        
-        // 检查这些模块是否已经在lt中，如果不在则添加
-        adminModules.forEach(function(module) {
-            var exists = false;
-            for (var i = 0; i < lt.length; i++) {
-                if (lt[i].table_name === module.table_name) {
-                    exists = true;
-                    break;
-                }
-            }
-            if (!exists) {
-                lt.push(module);
-            }
+
+        // 可加分组标题（美观）
+        menu.innerHTML += `<li class="layui-nav-item layui-nav-title"><a>系统管理</a></li>`;
+        modules.forEach(mod => {
+            menu.innerHTML += `
+                <li class="layui-nav-item">
+                    <a href="${mod.path}" target="main_self_frame">
+                        <i class="${mod.icon}"></i> ${mod.title}
+                    </a>
+                </li>
+            `;
         });
 
-        let uls = document.querySelector('#uls')
+        element.render('nav');
 
-        for (var i = 0; i <= lt.length - 1; i++) {
+        // 退出登录
+        document.getElementById('logout').onclick = async () => {
+            try { await axios.get('/api/user/quit'); } catch (e) {}
+            sessionStorage.clear();
+            location.href = '../index.html';
+        };
 
-
-            let li = document.createElement('li')
-            li.className = 'layui-nav-item'
-            li.id = 'more'
-            let a = document.createElement('a')
-            li.appendChild(a);
-            a.innerHTML = lt[i].page_title
-            a.href = "." + lt[i].path + ".html"
-            a.setAttribute("target", 'main_self_frame')
-            uls.appendChild(li)
-
-        }
-
-        let userManagement = document.querySelector('#userManagement')
-        let user = document.querySelector('#user')
-
-                let more = document.querySelectorAll('#more')
-
-        
-        if (personInfo.user_group == '管理员') {
-                            site.style.display = 'block'
-            
-            userManagement.style.display = 'block'
-                                                content.style.display = 'block'
-                                        
-                        more.forEach((item) => {
-                item.style.display = 'block'
-            })
-        } else {
-                        // 非管理员用户默认不显示动态添加的模块
-                        more.forEach((item) => {
-                item.style.display = 'none'
-            })
-        }
-        if(user_group == '管理员' || $check_group(['/user/table','/user_group/table','/auth/table'                            ,'/student_users/table'
-                                                                                                                                                    ])){
-            userManagement.style.display = 'block'
-        }
-        if(user_group !== '管理员'){
-            user.style.display = "none"
-        }
-                                    let student_users = document.querySelector('#student_users')
-                if(user_group == '管理员' || $check_action('/student_users/table')){
-                        student_users.style.display = "block"
-                }else {
-                        student_users.style.display = "none"
-                }
-                                                                                                                                            
-        // 权限判断
-        /**
-         * 获取路径对应操作权限 鉴权
-         * @param {String} action 操作名
-         */
-        function $check_action(path1, action = "get") {
-            var o = $get_power(path1);
-            if (o && o[action] != 0 && o[action] != false) {
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * 获取页面标题
-         * @param {String} path 路由路径
-         */
-        function $page_title(path) {
-            var o = $get_power(path);
-            if (o) {
-                return o.page_title || o.mod_name;
-            }
-            return "";
-        }
-        
-                                                                        let article = document.querySelector("#article")
-                    let article_type = document.querySelector("#article_type")
-                    if (user_group == "管理员" || $check_action('/article/table')) {
-                        article.style.display = "block"
-                        if ($page_title('/article/table')) {
-                            article.innerHTML = $page_title('/article/table')
-                        }
-                    }
-                    if (user_group == "管理员" || $check_action('/article_type/table')) {
-                        article_type.style.display = "block"
-                        if ($page_title('/article_type/table')) {
-                            article_type.innerHTML = $page_title('/article_type/table')
-                        }
-                    }
-                                                    
-        if ($check_group(['/article/table', '/article_type/table', '/exam/table']) || $check_action('/forum/table') || $check_action('/forum_type/table') || $check_action('/article/table') || $check_action('/article_type/table') || $check_action('/exam/table')) {
-            content.style.display = "block"
-        }
-
-        
-        /**
-         * 获取权限
-         * @param {String} path 路由路径
-         */
-        function $get_power(path) {
-            try {
-                var list_data = JSON.parse(sessionStorage.list_data)
-                var list = list_data;
-                var obj;
-                for (var i = 0; i < list.length; i++) {
-                    var o = list[i];
-                    if (o.path === path) {
-                        obj = o;
-                        break;
-                    }
-                }
-                return obj;
-            } catch (error) {
-                console.error('解析权限数据出错:', error)
-                return null;
-            }
-        }
-
-        var path1
-
-        function getpath() {
-            var list_data = JSON.parse(sessionStorage.list_data)
-            for (var i = 0; i < list_data.length; i++) {
-                var o = list_data[i];
-                if (o.path === "/order/table") {
-
-                    path1 = o.path
-                        $get_power(o.path)
-                }
-                if (o.path === "/goods_type/table") {
-
-                    path1 = o.path
-                        $get_power(o.path)
-                }
-                
-            }
-        }
-
-        getpath()
-
-        layui.element.render('nav', 'test2')
-        return lt
-    }
-
-    setTimeout(() => {
-        let li = document.createElement('li')
-        li.className = 'layui-nav-item'
-        li.id = 'quit'
-        let a = document.createElement('a')
-        a.innerHTML = '退出/Exit'
-        li.appendChild(a);
-        uls.appendChild(li)
-
-        layui.element.render('nav', 'test2')
-    }, 200)
-
-    layui.use(['element', 'layer', 'util'], function () {
-        var element = layui.element
-                , layer = layui.layer
-                , util = layui.util
-                , $ = layui.$;
-
-        element.on("nav(test2)", function () {
-            if ($(this).context.innerHTML == '退出/Exit') {
-                let {data: res} = axios.get(BaseUrl + '/api/user/quit',{
-                    headers: {
-                        "x-auth-token": sessionStorage.token
-                    }
-                })
-                window.location.replace("../index.html")
-                sessionStorage.clear()
-            }
-        });
+        // 网站首页
+        document.getElementById('websiteHomePage').onclick = () => {
+            const token = sessionStorage.getItem('token');
+            location.href = token ? `http://localhost:8081/?token=${token}` : 'http://localhost:8081/';
+        };
     });
-
-    get_list()
-
-    let websiteHomePage = document.querySelector('#websiteHomePage')
-    websiteHomePage.onclick = function () {
-        if (sessionStorage && sessionStorage.token){
-            location.href = "http://localhost:8081/?token="+sessionStorage.token;
-        }else {
-            location.href = "http://localhost:8081/"
-        }
-    }
 </script>
 </body>
-
 </html>
